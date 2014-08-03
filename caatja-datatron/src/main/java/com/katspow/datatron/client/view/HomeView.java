@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.katspow.datatron.client.view.popup.CreateAppPopup;
 
 public class HomeView extends Composite {
 
@@ -43,6 +44,17 @@ public class HomeView extends Composite {
                 mainPanel.clear();
             }
         });
+        
+        newApp.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                showCreateAppPopup();
+            }
+        });
+    }
+
+    protected void showCreateAppPopup() {
+        CreateAppPopup createAppPopup = new CreateAppPopup();
+        createAppPopup.center();
     }
 
     public void setInfoMsg(String msg) {
