@@ -39,14 +39,14 @@
 			<!-- <form class="quick_search"> <input type="text" value="Quick Search" 
 				onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;"> </form> 
 				<hr/> -->
-
+ 
 			<h3>Applications</h3>
 			<ul class="toggle">
 				<li class="icn_categories">
 					<a href="#">List</a>
 				</li>
 				<li class="icn_new_article">
-					<a href="#">New</a>
+					<g:Anchor ui:field="newApp" href="#" text="New"></g:Anchor>
 				</li>
 				<li class="icn_security">
 					<a href="#">Password</a>
