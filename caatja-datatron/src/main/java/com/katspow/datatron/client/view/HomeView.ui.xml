@@ -39,11 +39,11 @@
 			<!-- <form class="quick_search"> <input type="text" value="Quick Search" 
 				onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;"> </form> 
 				<hr/> -->
- 
+
 			<h3>Applications</h3>
 			<ul class="toggle">
 				<li class="icn_categories">
-					<a href="#">List</a>
+					<g:Anchor ui:field="listApp" href="#" text="List"></g:Anchor>
 				</li>
 				<li class="icn_new_article">
 					<g:Anchor ui:field="newApp" href="#" text="New"></g:Anchor>
@@ -51,8 +51,6 @@
 				<li class="icn_security">
 					<a href="#">Password</a>
 				</li>
-				<!-- <li class="icn_edit_article"><a href="#">Edit Articles</a></li> 
-					<li class="icn_tags"><a href="#">Tags</a></li> -->
 			</ul>
 			<h3>Images</h3>
 			<ul class="toggle">
@@ -91,14 +89,15 @@
 		</aside>
 		<!-- end of sidebar -->
 
-		<section id="main" class="column">
-
-			<h4 class="alert_info">Welcome to the DATATRON ! Please select an
-				action on the left menu.</h4>
-
-			<!-- end of styles article -->
-			<div class="spacer"></div>
-		</section>
+			<section id="main" class="column">
+				<g:HTMLPanel ui:field="mainPanel">
+				
+						<g:HTML ui:field="infoMsg"></g:HTML>
+				
+						<!-- end of styles article -->
+						<div class="spacer"></div>
+				</g:HTMLPanel>
+			</section>
 
 	</g:HTMLPanel>
 
