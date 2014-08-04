@@ -26,6 +26,9 @@ public class HomeView extends Composite {
 
     @UiField
     Anchor newApp;
+    
+    @UiField
+    Anchor changePwd;
 
     @UiField
     HTMLPanel mainPanel;
