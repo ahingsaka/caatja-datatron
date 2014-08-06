@@ -615,7 +615,7 @@ html ul.tabs li:last-child,html ul.tabs li:last-child a {
 	border-bottom: 1px dotted #cccccc;
 }
 
-input[type=submit] {
+button[type=submit], input[type=submit] {
 	background: #D0D1D4 url(../images/btn_submit.png) repeat-x;
 	border: 1px solid #A8A9A8;
 	-webkit-box-shadow: 0 1px 0 #fff;
@@ -632,11 +632,11 @@ input[type=submit] {
 	cursor: pointer;
 }
 
-input[type=submit]:hover {
+button[type=submit], input[type=submit]:hover {
 	color: #333333;
 }
 
-input[type=submit].alt_btn {
+button[type=submit].alt_btn, input[type=submit].alt_btn {
 	background: #D0D1D4 url(../images/btn_submit_2.png) repeat-x;
 	border: 1px solid #30B0C8;
 	-webkit-box-shadow: 0 1px 0 #fff;
@@ -653,11 +653,11 @@ input[type=submit].alt_btn {
 	cursor: pointer;
 }
 
-input[type=submit].alt_btn:hover {
+button[type=submit].alt_btn:hover, input[type=submit].alt_btn:hover {
 	color: #001217;
 }
 
-input[type=submit].btn_post_message {
+button[type=submit].btn_post_message, input[type=submit].btn_post_message {
 	background: #D0D1D4 url(../images/post_message.png) no-repeat;
 	display: block;
 	width: 37px;
@@ -667,7 +667,7 @@ input[type=submit].btn_post_message {
 	text-indent: -5000px;
 }
 
-input[type=submit].btn_post_message:hover {
+button[type=submit].btn_post_message:hover, .btn_post_message, input[type=submit].btn_post_message:hover {
 	background-position: 0 -24px;
 }
 

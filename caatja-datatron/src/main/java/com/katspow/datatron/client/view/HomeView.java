@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.katspow.datatron.client.utils.Msg;
 import com.katspow.datatron.client.view.popup.CreateAppPopup;
 
 public class HomeView extends Composite {
@@ -39,8 +40,8 @@ public class HomeView extends Composite {
     public HomeView() {
         initWidget(uiBinder.createAndBindUi(this));
 
-        setInfoMsg(WELCOME);
-
+        Msg.setInfoMsg(infoMsg, WELCOME);
+        
         listApp.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {

@@ -13,17 +13,17 @@
 
 							<fieldset>
 								<label>Name</label>
-								<input type="text" />
+								<g:TextBox ui:field="nameFld"></g:TextBox>
 							</fieldset>
 							
-							<h4 class="alert_error">Name already exists</h4>
+							<g:HTML ui:field="errorMsg"></g:HTML>
 							
 						</div>
 
 						<footer>
 							<div class="submit_link">
-								<input type="submit" value="Create" class="alt_btn" />
-								<input type="submit" value="Cancel" />
+								<g:SubmitButton ui:field="createBtn" styleName="alt_btn">Create</g:SubmitButton>
+								<g:SubmitButton ui:field="cancelBtn">Cancel</g:SubmitButton>
 							</div>
 						</footer>
 
