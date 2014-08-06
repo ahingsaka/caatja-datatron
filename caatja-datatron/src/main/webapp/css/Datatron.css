@@ -1,3 +1,11 @@
+/* GWT */
+.gwt-PopupPanelGlass {
+    background-color: #000;
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+}
+
+
 /* Essentials */
 html,div,map,dt,isindex,form,header,aside,section,section,article,footer
 	{

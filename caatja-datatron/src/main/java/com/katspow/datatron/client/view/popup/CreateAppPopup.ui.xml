@@ -1,0 +1,36 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+	<g:HTMLPanel ui:field="container">
+		<g:DialogBox ui:field="dialogBox">
+			<g:HTMLPanel>
+				<div id="main">
+					<article class="module width_full">
+						<header>
+							<h3>Create a new application name</h3>
+						</header>
+						<div class="module_content">
+
+							<fieldset>
+								<label>Name</label>
+								<input type="text" />
+							</fieldset>
+							
+							<h4 class="alert_error">Name already exists</h4>
+							
+						</div>
+
+						<footer>
+							<div class="submit_link">
+								<input type="submit" value="Create" class="alt_btn" />
+								<input type="submit" value="Cancel" />
+							</div>
+						</footer>
+
+					</article>
+				</div>
+			</g:HTMLPanel>
+		</g:DialogBox>
+	</g:HTMLPanel>
+
+</ui:UiBinder>
