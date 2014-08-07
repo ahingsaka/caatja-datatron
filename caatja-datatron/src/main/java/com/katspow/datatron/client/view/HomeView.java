@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.katspow.datatron.client.utils.Msg;
+import com.katspow.datatron.client.view.applist.AppLstView;
 import com.katspow.datatron.client.view.popup.CreateAppPopup;
 
 public class HomeView extends Composite {
@@ -37,6 +38,8 @@ public class HomeView extends Composite {
     @UiField
     HTML infoMsg;
 
+    private AppLstView appLstView;
+
     public HomeView() {
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -46,6 +49,7 @@ public class HomeView extends Composite {
             @Override
             public void onClick(ClickEvent event) {
                 mainPanel.clear();
+                mainPanel.add(getAppListView());
             }
         });
         
@@ -54,6 +58,13 @@ public class HomeView extends Composite {
                 showCreateAppPopup();
             }
         });
+    }
+
+    protected AppLstView getAppListView() {
+        if (appLstView == null) {
+            appLstView = new AppLstView();
+        }
+        return appLstView;
     }
 
     protected void showCreateAppPopup() {
