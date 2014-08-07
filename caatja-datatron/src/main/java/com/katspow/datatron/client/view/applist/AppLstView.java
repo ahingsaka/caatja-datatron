@@ -3,11 +3,15 @@ package com.katspow.datatron.client.view.applist;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.cell.client.SafeHtmlCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.CellTable.Resources;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -38,9 +42,37 @@ public class AppLstView extends Composite {
         
         appLst.addColumn(nameColumn, "Name");
         
+        final SafeHtmlCell selectCell = new SafeHtmlCell();
+
+        Column<ApplicationDto, SafeHtml> selectCol = new Column<ApplicationDto, SafeHtml>(
+                selectCell) {
+            public SafeHtml getValue(ApplicationDto value) {
+                SafeHtmlBuilder sb = new SafeHtmlBuilder();
+                sb.appendHtmlConstant("<input type='image' src='images/icn_search.png' title='Search' />");
+                return sb.toSafeHtml();
+            }
+        };
+        
+        appLst.addColumn(selectCol, "Select");
+        
+        final SafeHtmlCell progressCell = new SafeHtmlCell();
+
+        Column<ApplicationDto, SafeHtml> progressCol = new Column<ApplicationDto, SafeHtml>(
+                progressCell) {
+            public SafeHtml getValue(ApplicationDto value) {
+                SafeHtmlBuilder sb = new SafeHtmlBuilder();
+                sb.appendHtmlConstant("<input type='image' src='images/icn_trash.png' title='Trash' />");
+                return sb.toSafeHtml();
+            }
+        };
+        
+        appLst.addColumn(progressCol, "Delete");
+        
         List<ApplicationDto> values = new ArrayList<ApplicationDto>();
         ApplicationDto value1 = new ApplicationDto("lorem ipsum");
+        ApplicationDto value2 = new ApplicationDto("lorem ipsum again ceded");
         values.add(value1);
+        values.add(value2);
         appLst.setRowData(values);
     }
 
