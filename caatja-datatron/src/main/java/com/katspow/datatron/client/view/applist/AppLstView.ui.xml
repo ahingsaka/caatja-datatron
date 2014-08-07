@@ -1,5 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
 	<g:HTMLPanel>
 		<article class="module width_half">
@@ -7,63 +8,7 @@
 				<h3>Existing Applications</h3>
 			</header>
 			<div class="tab_container">
-
-				<table class="tablesorter" cellspacing="0">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Select</th>
-							<th>Delete</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Lorem Ipsum Dolor Sit Amet</td>
-							<td>
-								<input type="image" src="images/icn_search.png" title="Select" />
-							</td>
-							<td>
-								<input type="image" src="images/icn_trash.png" title="Trash" />
-							</td>
-						</tr>
-						<tr>
-							<td>Ipsum Lorem Dolor Sit Amet</td>
-							<td>
-								<input type="image" src="images/icn_search.png" title="Select" />
-							</td>
-							<td>
-								<input type="image" src="images/icn_trash.png" title="Trash" />
-							</td>
-						</tr>
-						<tr>
-							<td>Sit Amet Dolor Ipsum</td>
-							<td>
-								<input type="image" src="images/icn_search.png" title="Select" />
-							</td>
-							<td>
-								<input type="image" src="images/icn_trash.png" title="Trash" />
-							</td>
-						</tr>
-						<tr>
-							<td>Dolor Lorem Amet</td>
-							<td>
-								<input type="image" src="images/icn_search.png" title="Select" />
-							</td>
-							<td>
-								<input type="image" src="images/icn_trash.png" title="Trash" />
-							</td>
-						</tr>
-						<tr>
-							<td>Dolor Lorem Amet</td>
-							<td>
-								<input type="image" src="images/icn_search.png" title="Select" />
-							</td>
-							<td>
-								<input type="image" src="images/icn_trash.png" title="Trash" />
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<c:CellTable ui:field="appLst" styleName="tablesorter"></c:CellTable>
 			</div>
 		</article>
 	</g:HTMLPanel>
