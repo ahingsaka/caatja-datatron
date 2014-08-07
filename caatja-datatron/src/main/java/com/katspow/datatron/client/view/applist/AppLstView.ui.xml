@@ -12,6 +12,7 @@
 					<thead>
 						<tr>
 							<th>Name</th>
+							<th>Select</th>
 							<th>Delete</th>
 						</tr>
 					</thead>
@@ -19,31 +20,46 @@
 						<tr>
 							<td>Lorem Ipsum Dolor Sit Amet</td>
 							<td>
-									<input type="image" src="images/icn_trash.png" title="Trash" />
+								<input type="image" src="images/icn_search.png" title="Select" />
+							</td>
+							<td>
+								<input type="image" src="images/icn_trash.png" title="Trash" />
 							</td>
 						</tr>
 						<tr>
 							<td>Ipsum Lorem Dolor Sit Amet</td>
 							<td>
-									<input type="image" src="images/icn_trash.png" title="Trash" />
+								<input type="image" src="images/icn_search.png" title="Select" />
+							</td>
+							<td>
+								<input type="image" src="images/icn_trash.png" title="Trash" />
 							</td>
 						</tr>
 						<tr>
 							<td>Sit Amet Dolor Ipsum</td>
 							<td>
-									<input type="image" src="images/icn_trash.png" title="Trash" />
+								<input type="image" src="images/icn_search.png" title="Select" />
+							</td>
+							<td>
+								<input type="image" src="images/icn_trash.png" title="Trash" />
 							</td>
 						</tr>
 						<tr>
 							<td>Dolor Lorem Amet</td>
 							<td>
-									<input type="image" src="images/icn_trash.png" title="Trash" />
+								<input type="image" src="images/icn_search.png" title="Select" />
+							</td>
+							<td>
+								<input type="image" src="images/icn_trash.png" title="Trash" />
 							</td>
 						</tr>
 						<tr>
 							<td>Dolor Lorem Amet</td>
 							<td>
-									<input type="image" src="images/icn_trash.png" title="Trash" />
+								<input type="image" src="images/icn_search.png" title="Select" />
+							</td>
+							<td>
+								<input type="image" src="images/icn_trash.png" title="Trash" />
 							</td>
 						</tr>
 					</tbody>
