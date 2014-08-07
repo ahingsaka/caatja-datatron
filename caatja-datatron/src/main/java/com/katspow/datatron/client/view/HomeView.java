@@ -46,7 +46,6 @@ public class HomeView extends Composite {
         Msg.setInfoMsg(infoMsg, WELCOME);
         
         listApp.addClickHandler(new ClickHandler() {
-            @Override
             public void onClick(ClickEvent event) {
                 mainPanel.clear();
                 mainPanel.add(getAppListView());

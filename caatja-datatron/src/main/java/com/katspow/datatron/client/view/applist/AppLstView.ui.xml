@@ -1,8 +1,55 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-	
+
 	<g:HTMLPanel>
-		hello
+		<article class="module width_half">
+			<header>
+				<h3>Existing Applications</h3>
+			</header>
+			<div class="tab_container">
+
+				<table class="tablesorter" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Lorem Ipsum Dolor Sit Amet</td>
+							<td>
+									<input type="image" src="images/icn_trash.png" title="Trash" />
+							</td>
+						</tr>
+						<tr>
+							<td>Ipsum Lorem Dolor Sit Amet</td>
+							<td>
+									<input type="image" src="images/icn_trash.png" title="Trash" />
+							</td>
+						</tr>
+						<tr>
+							<td>Sit Amet Dolor Ipsum</td>
+							<td>
+									<input type="image" src="images/icn_trash.png" title="Trash" />
+							</td>
+						</tr>
+						<tr>
+							<td>Dolor Lorem Amet</td>
+							<td>
+									<input type="image" src="images/icn_trash.png" title="Trash" />
+							</td>
+						</tr>
+						<tr>
+							<td>Dolor Lorem Amet</td>
+							<td>
+									<input type="image" src="images/icn_trash.png" title="Trash" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</article>
 	</g:HTMLPanel>
-	
+
 </ui:UiBinder>
