@@ -5,6 +5,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
 	<!-- Servlets -->
+	<servlet>
+		<servlet-name>datatronServlet</servlet-name>
+		<servlet-class>com.katspow.datatron.server.service.DatatronServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>datatronServlet</servlet-name>
+		<url-pattern>/datatron/service</url-pattern>
+	</servlet-mapping>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>
