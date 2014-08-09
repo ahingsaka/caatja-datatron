@@ -1,6 +1,5 @@
 package com.katspow.datatron.client.view.applist;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.cell.client.SafeHtmlCell;
@@ -13,8 +12,11 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.CellTable.Resources;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import com.katspow.datatron.client.api.DatatronService;
+import com.katspow.datatron.client.api.DatatronServiceAsync;
 import com.katspow.datatron.client.utils.TableResources;
 import com.katspow.datatron.shared.ApplicationDto;
 
@@ -24,6 +26,8 @@ public class AppLstView extends Composite {
     }
     
     private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+    
+    private static final DatatronServiceAsync dataService = GWT.create(DatatronService.class);
     
     @UiField(provided = true)
     CellTable<ApplicationDto> appLst;
@@ -68,12 +72,22 @@ public class AppLstView extends Composite {
         
         appLst.addColumn(progressCol, "Delete");
         
-        List<ApplicationDto> values = new ArrayList<ApplicationDto>();
-        ApplicationDto value1 = new ApplicationDto("lorem ipsum");
-        ApplicationDto value2 = new ApplicationDto("lorem ipsum again ceded");
-        values.add(value1);
-        values.add(value2);
-        appLst.setRowData(values);
+        dataService.findAllApps(new AsyncCallback<List<ApplicationDto>>() {
+            public void onSuccess(List<ApplicationDto> result) {
+                appLst.setRowData(result);
+            }
+            
+            @Override
+            public void onFailure(Throwable caught) {
+            }
+        });
+        
+//        List<ApplicationDto> values = new ArrayList<ApplicationDto>();
+//        ApplicationDto value1 = new ApplicationDto("lorem ipsum");
+//        ApplicationDto value2 = new ApplicationDto("lorem ipsum again ceded");
+//        values.add(value1);
+//        values.add(value2);
+//        appLst.setRowData(values);
     }
 
 }
