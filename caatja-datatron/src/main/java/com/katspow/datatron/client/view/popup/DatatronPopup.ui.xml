@@ -1,0 +1,30 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	
+	<g:HTMLPanel ui:field="container">
+		<g:DialogBox ui:field="dialogBox">
+			<g:HTMLPanel>
+				<div id="main">
+					<article class="module width_full">
+						<header>
+							<g:HTML ui:field="title"></g:HTML>
+						</header>
+						
+						<div class="module_content">
+							<g:HTML ui:field="message"></g:HTML>
+						</div>
+
+						<footer>
+							<div class="submit_link">
+								<g:SubmitButton ui:field="okBtn" styleName="alt_btn">Ok</g:SubmitButton>
+								<g:SubmitButton ui:field="cancelBtn">Cancel</g:SubmitButton>
+							</div>
+						</footer>
+
+					</article>
+				</div>
+			</g:HTMLPanel>
+		</g:DialogBox>
+	</g:HTMLPanel>
+</ui:UiBinder>
