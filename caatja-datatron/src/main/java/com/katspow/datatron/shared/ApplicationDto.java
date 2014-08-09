@@ -8,6 +8,9 @@ public class ApplicationDto implements Serializable {
     
     private Long id;
     
+    public ApplicationDto() {
+    }
+    
     public ApplicationDto(String name) {
         this.name = name;
     }

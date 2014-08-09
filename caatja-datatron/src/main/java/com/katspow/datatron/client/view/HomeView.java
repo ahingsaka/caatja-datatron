@@ -28,30 +28,29 @@ public class HomeView extends Composite {
 
     @UiField
     Anchor newApp;
-    
+
     @UiField
     Anchor changePwd;
 
     @UiField
-    HTMLPanel mainPanel;
+    static HTMLPanel mainPanel;
 
     @UiField
     HTML infoMsg;
 
-    private AppLstView appLstView;
+    private static AppLstView appLstView;
 
     public HomeView() {
         initWidget(uiBinder.createAndBindUi(this));
 
         Msg.setInfoMsg(infoMsg, WELCOME);
-        
+
         listApp.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
-                mainPanel.clear();
-                mainPanel.add(getAppListView());
+               showApps();
             }
         });
-        
+
         newApp.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 showCreateAppPopup();
@@ -59,10 +58,15 @@ public class HomeView extends Composite {
         });
     }
 
-    protected AppLstView getAppListView() {
-        if (appLstView == null) {
+    public static void showApps() {
+        mainPanel.clear();
+        mainPanel.add(getAppListView());
+    }
+
+    protected static AppLstView getAppListView() {
+        //if (appLstView == null) {
             appLstView = new AppLstView();
-        }
+        //}
         return appLstView;
     }
 
