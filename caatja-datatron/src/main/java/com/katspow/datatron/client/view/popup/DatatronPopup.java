@@ -33,6 +33,8 @@ public class DatatronPopup extends Composite {
     @UiField
     SubmitButton cancelBtn;
 
+    private DatatronCallback callback;
+
     public DatatronPopup(String title, String msg) {
         initWidget(uiBinder.createAndBindUi(this));
         
@@ -48,6 +50,7 @@ public class DatatronPopup extends Composite {
         
         okBtn.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
+                callback.onOk();
             }
         });
         
@@ -66,6 +69,14 @@ public class DatatronPopup extends Composite {
 
     public void center() {
         dialogBox.center();
+    }
+    
+    public void setCallback(DatatronCallback callback) {
+        this.callback = callback;
+    }
+
+    public void hide() {
+        this.dialogBox.hide();
     }
 
 }

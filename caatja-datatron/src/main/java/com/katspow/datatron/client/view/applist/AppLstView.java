@@ -19,10 +19,14 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
+import com.katspow.datatron.client.utils.Msg;
 import com.katspow.datatron.client.utils.TableResources;
+import com.katspow.datatron.client.view.HomeView;
+import com.katspow.datatron.client.view.popup.DatatronCallback;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
 import com.katspow.datatron.shared.ApplicationDto;
 
@@ -34,6 +38,9 @@ public class AppLstView extends Composite {
     private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
     private static final DatatronServiceAsync dataService = GWT.create(DatatronService.class);
+    
+    @UiField
+    HTML message;
 
     @UiField(provided = true)
     CellTable<ApplicationDto> appLst;
@@ -68,11 +75,20 @@ public class AppLstView extends Composite {
             }
 
             @Override
-            public void onBrowserEvent(Context context, Element elem, ApplicationDto object, NativeEvent event) {
+            public void onBrowserEvent(Context context, Element elem, final ApplicationDto object, NativeEvent event) {
                 super.onBrowserEvent(context, elem, object, event);
                 if ("click".equals(event.getType())) {
-                    DatatronPopup datatronPopup = new DatatronPopup("Confirm action", "Application <b>"
+                    final DatatronPopup datatronPopup = new DatatronPopup("Confirm action", "Application <b>"
                             + object.getName() + "</b> will be selected");
+                    
+                    datatronPopup.setCallback(new DatatronCallback() {
+                        public void onOk() {
+                            setSelectedApplication(object);
+                            datatronPopup.hide();
+                        }
+
+                    });
+                    
                     datatronPopup.center();
                 }
             }
@@ -121,6 +137,10 @@ public class AppLstView extends Composite {
             }
         });
 
+    }
+    
+    private void setSelectedApplication(ApplicationDto object) {
+        Msg.setInfoMsg(message, "Application <b>" + object.getName() + "</b> is now selected");
     }
 
 }

@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.katspow.datatron.client.utils.Msg;
 import com.katspow.datatron.client.view.applist.AppLstView;
 import com.katspow.datatron.client.view.popup.CreateAppPopup;
+import com.katspow.datatron.shared.ApplicationDto;
 
 public class HomeView extends Composite {
 
@@ -62,7 +63,7 @@ public class HomeView extends Composite {
         mainPanel.clear();
         mainPanel.add(getAppListView());
     }
-
+    
     protected static AppLstView getAppListView() {
         //if (appLstView == null) {
             appLstView = new AppLstView();

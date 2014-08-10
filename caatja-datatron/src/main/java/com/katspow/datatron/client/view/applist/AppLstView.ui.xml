@@ -3,6 +3,9 @@
 	xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
 	<g:HTMLPanel>
+	
+		<g:HTML ui:field="message"></g:HTML>
+	
 		<article class="module width_half">
 			<header>
 				<h3>Existing Applications</h3>
