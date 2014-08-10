@@ -21,11 +21,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
+import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
 import com.katspow.datatron.client.utils.Msg;
 import com.katspow.datatron.client.utils.TableResources;
-import com.katspow.datatron.client.view.HomeView;
 import com.katspow.datatron.client.view.popup.DatatronCallback;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
 import com.katspow.datatron.shared.ApplicationDto;
@@ -83,7 +83,7 @@ public class AppLstView extends Composite {
                     
                     datatronPopup.setCallback(new DatatronCallback() {
                         public void onOk() {
-                            setSelectedApplication(object);
+                            Datatron.setSelectedApplication(object);
                             datatronPopup.hide();
                         }
 
@@ -139,7 +139,7 @@ public class AppLstView extends Composite {
 
     }
     
-    private void setSelectedApplication(ApplicationDto object) {
+    public void setSelectedApplication(ApplicationDto object) {
         Msg.setInfoMsg(message, "Application <b>" + object.getName() + "</b> is now selected");
     }
 

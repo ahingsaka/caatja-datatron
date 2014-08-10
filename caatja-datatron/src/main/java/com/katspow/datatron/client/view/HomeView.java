@@ -10,8 +10,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.utils.Msg;
-import com.katspow.datatron.client.view.applist.AppLstView;
 import com.katspow.datatron.client.view.popup.CreateAppPopup;
 import com.katspow.datatron.shared.ApplicationDto;
 
@@ -23,6 +23,12 @@ public class HomeView extends Composite {
     private static final String WELCOME = "Welcome to the DATATRON ! Please select an action on the left menu.";
 
     private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
+    
+    @UiField
+    HTML selectedApplication;
+    
+    @UiField
+    HTML menuTitle;
 
     @UiField
     Anchor listApp;
@@ -39,8 +45,6 @@ public class HomeView extends Composite {
     @UiField
     HTML infoMsg;
 
-    private static AppLstView appLstView;
-
     public HomeView() {
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -48,7 +52,7 @@ public class HomeView extends Composite {
 
         listApp.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
-               showApps();
+               Datatron.showApps();
             }
         });
 
@@ -57,18 +61,14 @@ public class HomeView extends Composite {
                 showCreateAppPopup();
             }
         });
-    }
-
-    public static void showApps() {
-        mainPanel.clear();
-        mainPanel.add(getAppListView());
+        
+        setHomeTitle("[ No application selected ]");
+        setMenuTitle("[ No application selected ]");
     }
     
-    protected static AppLstView getAppListView() {
-        //if (appLstView == null) {
-            appLstView = new AppLstView();
-        //}
-        return appLstView;
+    public void setViewInMain(Widget w) {
+        mainPanel.clear();
+        mainPanel.add(w);
     }
 
     protected void showCreateAppPopup() {
@@ -78,6 +78,19 @@ public class HomeView extends Composite {
 
     public void setInfoMsg(String msg) {
         infoMsg.setHTML("<h4 class='alert_info'>" + msg + "</h4>");
+    }
+    
+    private void setHomeTitle(String title) {
+        selectedApplication.setHTML("<h2 class='section_title'>" + title + "</h2>");
+    }
+    
+    private void setMenuTitle(String title) {
+        menuTitle.setHTML("<p>" + title + "</p>");
+    }
+
+    public void setSelectedApplication(ApplicationDto object) {
+        setHomeTitle("Application selected : " + object.getName());
+        setMenuTitle(object.getName());
     }
 
 }

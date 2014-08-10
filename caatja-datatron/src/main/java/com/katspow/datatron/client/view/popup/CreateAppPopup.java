@@ -13,10 +13,10 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
 import com.katspow.datatron.client.utils.Msg;
-import com.katspow.datatron.client.view.HomeView;
 
 public class CreateAppPopup extends Composite {
 
@@ -79,7 +79,7 @@ public class CreateAppPopup extends Composite {
             public void onSuccess(Boolean result) {
                 if (result) {
                     nameFld.setText("");
-                    HomeView.showApps();
+                    Datatron.showApps();
                     dialogBox.hide();
                 } else {
                     Msg.setErrorMsg(errorMsg, "App name already exists !");
