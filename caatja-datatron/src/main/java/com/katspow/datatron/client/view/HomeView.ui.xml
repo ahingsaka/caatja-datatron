@@ -56,7 +56,7 @@
 			<h3>Images</h3>
 			<ul class="toggle">
 				<li class="icn_photo">
-					<a href="#">View all</a>
+					<g:Anchor ui:field="listImg" href="#" text="View all"></g:Anchor>
 				</li>
 				<li class="icn_new_article">
 					<a href="#">Upload</a>

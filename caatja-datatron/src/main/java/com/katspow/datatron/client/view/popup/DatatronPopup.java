@@ -35,25 +35,44 @@ public class DatatronPopup extends Composite {
 
     private DatatronCallback callback;
 
-    public DatatronPopup(String title, String msg) {
+    public DatatronPopup(String infoMsg) {
         initWidget(uiBinder.createAndBindUi(this));
-        
+
         dialogBox.setGlassEnabled(true);
         dialogBox.setModal(true);
         dialogBox.setAnimationEnabled(true);
-        
+
+        cancelBtn.setVisible(false);
+
+        okBtn.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                dialogBox.hide();
+            }
+        });
+
+        setPopupTitle("Warning");
+        setMessage(infoMsg);
+    }
+
+    public DatatronPopup(String title, String msg) {
+        initWidget(uiBinder.createAndBindUi(this));
+
+        dialogBox.setGlassEnabled(true);
+        dialogBox.setModal(true);
+        dialogBox.setAnimationEnabled(true);
+
         cancelBtn.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 dialogBox.hide();
             }
         });
-        
+
         okBtn.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 callback.onOk();
             }
         });
-        
+
         setPopupTitle(title);
         setMessage(msg);
 
@@ -70,7 +89,7 @@ public class DatatronPopup extends Composite {
     public void center() {
         dialogBox.center();
     }
-    
+
     public void setCallback(DatatronCallback callback) {
         this.callback = callback;
     }

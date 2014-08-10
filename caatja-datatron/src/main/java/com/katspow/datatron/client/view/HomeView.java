@@ -38,6 +38,9 @@ public class HomeView extends Composite {
 
     @UiField
     Anchor changePwd;
+    
+    @UiField
+    Anchor listImg;
 
     @UiField
     static HTMLPanel mainPanel;
@@ -59,6 +62,12 @@ public class HomeView extends Composite {
         newApp.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 showCreateAppPopup();
+            }
+        });
+        
+        listImg.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                Datatron.showImgs();
             }
         });
         

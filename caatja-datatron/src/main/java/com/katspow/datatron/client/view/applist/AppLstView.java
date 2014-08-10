@@ -119,6 +119,13 @@ public class AppLstView extends Composite {
                 if ("click".equals(event.getType())) {
                     DatatronPopup datatronPopup = new DatatronPopup("Confirm action", "Application <b>"
                             + object.getName() + "</b> and all associated resources will be <b>DELETED</b> !");
+                    
+                    datatronPopup.setCallback(new DatatronCallback() {
+                        public void onOk() {
+                            // TODO Auto-generated method stub
+                        }
+                    });
+                    
                     datatronPopup.center();
                 }
             }
