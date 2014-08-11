@@ -41,6 +41,9 @@ public class HomeView extends Composite {
     
     @UiField
     Anchor listImg;
+    
+    @UiField
+    Anchor uploadImg;
 
     @UiField
     static HTMLPanel mainPanel;
@@ -68,6 +71,12 @@ public class HomeView extends Composite {
         listImg.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 Datatron.showImgs();
+            }
+        });
+        
+        uploadImg.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                Datatron.showUpload();
             }
         });
         

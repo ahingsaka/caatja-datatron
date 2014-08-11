@@ -59,7 +59,7 @@
 					<g:Anchor ui:field="listImg" href="#" text="View all"></g:Anchor>
 				</li>
 				<li class="icn_new_article">
-					<a href="#">Upload</a>
+					<g:Anchor ui:field="uploadImg" href="#" text="Upload"></g:Anchor>
 				</li>
 				<!-- <li class="icn_add_user"><a href="#">Add New User</a></li> <li class="icn_view_users"><a 
 					href="#">View Users</a></li> <li class="icn_profile"><a href="#">Your Profile</a></li> -->
