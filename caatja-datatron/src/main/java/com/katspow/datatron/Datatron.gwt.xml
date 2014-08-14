@@ -6,6 +6,8 @@
 <module rename-to='datatron'>
 
 	<inherits name='com.google.gwt.user.User' />
+	
+	<inherits name="gwtupload.GWTUpload"/>
 
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.katspow.datatron.client.Datatron' />
@@ -13,5 +15,7 @@
 	<!-- Specify the paths for translatable code -->
 	<source path='client' />
 	<source path='shared' />
+	
+	<stylesheet src="Upload.css"/>
 
 </module>
