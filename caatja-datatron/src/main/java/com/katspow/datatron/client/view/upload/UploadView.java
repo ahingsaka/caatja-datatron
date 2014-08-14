@@ -13,6 +13,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.Widget;
@@ -38,6 +39,9 @@ public class UploadView extends Composite {
     
     @UiField(provided = true)
     MultiUploader uploader;
+    
+    @UiField
+    FormPanel form;
 
     public UploadView() {
         

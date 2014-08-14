@@ -12,8 +12,10 @@
 						</header>
 						<div class="module_content">
 						
-							<u:MultiUploader ui:field="uploader"></u:MultiUploader>
-
+							<g:FormPanel ui:field="form">
+								<u:MultiUploader ui:field="uploader"></u:MultiUploader>
+							</g:FormPanel>
+							
 							<g:HTML ui:field="errorMsg"></g:HTML>
 							
 						</div>
