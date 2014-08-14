@@ -6,9 +6,19 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
 	<!-- Servlets -->
 	<servlet>
+		<servlet-name>uploadServlet</servlet-name>
+		<servlet-class>com.katspow.datatron.server.service.DatatronFileUpload</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>datatronServlet</servlet-name>
 		<servlet-class>com.katspow.datatron.server.service.DatatronServiceImpl</servlet-class>
 	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>uploadServlet</servlet-name>
+		<url-pattern>*.gupld</url-pattern>
+	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>datatronServlet</servlet-name>

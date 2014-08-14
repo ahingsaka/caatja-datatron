@@ -11,12 +11,16 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
+import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
+import com.katspow.datatron.client.Datatron;
 
 public class UploadView extends Composite {
 
@@ -52,6 +56,10 @@ public class UploadView extends Composite {
         uploader.reset();
         
         initWidget(uiBinder.createAndBindUi(this));
+        
+        form.setAction("/imgupload");
+        form.setEncoding(FormPanel.ENCODING_MULTIPART);
+        form.setMethod(FormPanel.METHOD_POST);
 
         dialogBox.setGlassEnabled(true);
         dialogBox.setModal(true);
@@ -65,6 +73,28 @@ public class UploadView extends Composite {
 
         uploadBtn.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
+                uploader.setServletPath(uploader.getServletPath() + "?app=" + Datatron.getSelectedApplication().getId());
+                uploader.submit();
+            }
+        });
+        
+        // Add an event handler to the form.
+        form.addSubmitHandler(new FormPanel.SubmitHandler() {
+            public void onSubmit(SubmitEvent event) {
+                
+            }
+        });
+
+        form.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
+            public void onSubmitComplete(SubmitCompleteEvent event) {
+                // When the form submission is successfully completed, this
+                // event is
+                // fired. Assuming the service returned a response of type
+                // text/html,
+                // we can get the result text here (see the FormPanel
+                // documentation for
+                // further explanation).
+                Window.alert(event.getResults());
             }
         });
         
