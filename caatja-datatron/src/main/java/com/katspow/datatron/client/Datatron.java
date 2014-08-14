@@ -56,7 +56,7 @@ public class Datatron implements EntryPoint {
 
         } else {
             uploadView = new UploadView();
-            getHomeView().setViewInMain(uploadView);
+            uploadView.center();
         }
     }
 
