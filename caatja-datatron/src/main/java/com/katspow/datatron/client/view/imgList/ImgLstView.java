@@ -70,7 +70,7 @@ public class ImgLstView extends Composite {
             public void onSelectionChange(SelectionChangeEvent event) {
                 ImageDto selectedObject = selectionModel.getSelectedObject();
                 String base64Data = "data:image/png;base64," + selectedObject.getImageData();
-                preview.setVisibleRect(0, 0, selectedObject.getWidth(), selectedObject.getHeight());
+//                preview.setVisibleRect(0, 0, selectedObject.getWidth(), selectedObject.getHeight());
                 preview.setUrl(base64Data);
             }
         });

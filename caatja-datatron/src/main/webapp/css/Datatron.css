@@ -914,3 +914,8 @@ fieldset textarea:focus {
 	text-indent: 40px;
 	font-size: 14px;
 }
+
+img.preview {
+	max-width: 100%;
+	height: auto;
+}

@@ -19,7 +19,7 @@
 				<h3>Preview</h3>
 			</header>
 			<div class="module_content">
-				<g:Image ui:field="preview"></g:Image>
+				<g:Image ui:field="preview" styleName="preview"></g:Image>
 			</div>
 		</article>
 
