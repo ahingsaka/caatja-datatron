@@ -47,13 +47,16 @@ public class HomeView extends Composite {
     
     @UiField
     Anchor listScores;
+    
+    @UiField
+    Anchor listData;
 
     @UiField
     static HTMLPanel mainPanel;
 
     @UiField
     HTML infoMsg;
-
+    
     public HomeView() {
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -86,6 +89,12 @@ public class HomeView extends Composite {
         listScores.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 Datatron.showScores();
+            }
+        });
+        
+        listData.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                Datatron.showData();
             }
         });
         

@@ -75,7 +75,7 @@
 			<h3>Data</h3>
 			<ul class="toggle">
 				<li class="icn_folder">
-					<a href="#">Show all</a>
+					<g:Anchor ui:field="listData" href="#" text="Show all"></g:Anchor>
 				</li>
 				<!-- <li class="icn_settings"><a href="#">Options</a></li> <li class="icn_security"><a 
 					href="#">Security</a></li> <li class="icn_jump_back"><a href="#">Logout</a></li> -->
