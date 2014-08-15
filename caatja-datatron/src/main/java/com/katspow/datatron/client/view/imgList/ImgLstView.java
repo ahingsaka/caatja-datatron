@@ -10,7 +10,10 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
@@ -28,6 +31,9 @@ public class ImgLstView extends Composite {
     @UiField(provided = true)
     CellList<ImageDto> imgLst;
 
+    @UiField
+    Image preview;
+
     static class ImageCell extends AbstractCell<ImageDto> {
 
         @Override
@@ -43,18 +49,32 @@ public class ImgLstView extends Composite {
             // sb.appendHtmlConstant(imageHtml);
             sb.appendHtmlConstant("</td>");
 
-            // Add the name and address.
+            // Add the name and size.
             sb.appendHtmlConstant("<td style='font-size:95%;'>");
-            sb.appendEscaped("Test");
-            // sb.appendHtmlConstant("</td></tr><tr><td>");
-            // sb.appendEscaped(value.getAddress());
-            // sb.appendHtmlConstant("</td></tr></table>");
+            sb.appendEscaped(value.getName());
+            sb.appendHtmlConstant("</td></tr><tr><td>");
+            sb.appendEscaped(value.getWidth() + " x " + value.getHeight());
+            sb.appendHtmlConstant("</td></tr></table>");
         }
     }
 
     public ImgLstView() {
         ImageCell imageCell = new ImageCell();
         imgLst = new CellList<ImageDto>(imageCell);
+
+        // Add a selection model so we can select cells.
+        final SingleSelectionModel<ImageDto> selectionModel = new SingleSelectionModel<ImageDto>(ImageDto.KEY_PROVIDER);
+
+        imgLst.setSelectionModel(selectionModel);
+        selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+            public void onSelectionChange(SelectionChangeEvent event) {
+                ImageDto selectedObject = selectionModel.getSelectedObject();
+                String base64Data = "data:image/png;base64," + selectedObject.getImageData();
+                preview.setVisibleRect(0, 0, selectedObject.getWidth(), selectedObject.getHeight());
+                preview.setUrl(base64Data);
+            }
+        });
+
         initWidget(uiBinder.createAndBindUi(this));
 
         dataService.findAllResources(Datatron.getSelectedApplication().getId(), new AsyncCallback<List<ImageDto>>() {

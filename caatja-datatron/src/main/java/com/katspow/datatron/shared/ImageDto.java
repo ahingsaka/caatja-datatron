@@ -2,7 +2,9 @@ package com.katspow.datatron.shared;
 
 import java.io.Serializable;
 
-public class ImageDto implements Serializable {
+import com.google.gwt.view.client.ProvidesKey;
+
+public class ImageDto implements Serializable, Comparable<ImageDto> {
 
     private static final long serialVersionUID = -4001369304426534002L;
 
@@ -17,6 +19,15 @@ public class ImageDto implements Serializable {
     private int width;
 
     private String imageData;
+
+    /**
+     * The key provider that provides the unique ID of a contact.
+     */
+    public static final ProvidesKey<ImageDto> KEY_PROVIDER = new ProvidesKey<ImageDto>() {
+        public Object getKey(ImageDto item) {
+            return item == null ? null : item.getId();
+        }
+    };
 
     public ImageDto() {
     }
@@ -77,6 +88,11 @@ public class ImageDto implements Serializable {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    @Override
+    public int compareTo(ImageDto o) {
+        return (o == null || o.name == null) ? -1 : -o.name.compareTo(name);
     }
 
 }

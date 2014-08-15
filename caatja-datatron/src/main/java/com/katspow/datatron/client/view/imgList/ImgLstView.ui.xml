@@ -5,12 +5,21 @@
 
 	<g:HTMLPanel>
 
-		<article class="module width_full">
+		<article class="module width_half">
 			<header>
 				<h3>Uploaded images</h3>
 			</header>
-			<div>
+			<div class="module_content">
 				<c:CellList ui:field="imgLst"></c:CellList>
+			</div>
+		</article>
+		
+		<article class="module width_half">
+			<header>
+				<h3>Preview</h3>
+			</header>
+			<div class="module_content">
+				<g:Image ui:field="preview"></g:Image>
 			</div>
 		</article>
 
