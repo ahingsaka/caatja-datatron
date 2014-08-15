@@ -2,11 +2,11 @@ package com.katspow.datatron.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.katspow.datatron.client.view.HomeView;
 import com.katspow.datatron.client.view.applist.AppLstView;
 import com.katspow.datatron.client.view.imgList.ImgLstView;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
+import com.katspow.datatron.client.view.scores.ScoresView;
 import com.katspow.datatron.client.view.upload.UploadView;
 import com.katspow.datatron.shared.ApplicationDto;
 
@@ -21,6 +21,8 @@ public class Datatron implements EntryPoint {
     private static ApplicationDto selectedApplication;
 
     private static UploadView uploadView;
+    
+    private static ScoresView scoresView;
 
     @Override
     public void onModuleLoad() {
@@ -59,6 +61,16 @@ public class Datatron implements EntryPoint {
             uploadView.center();
         }
     }
+    
+    public static void showScores() {
+        if (selectedApplication == null) {
+            DatatronPopup datatronPopup = new DatatronPopup("Please select an application first");
+            datatronPopup.center();
+        } else {
+            scoresView = new ScoresView();
+            getHomeView().setViewInMain(scoresView);
+        }
+    }
 
     public static ApplicationDto getSelectedApplication() {
         return selectedApplication;
@@ -74,6 +86,10 @@ public class Datatron implements EntryPoint {
 
     public static ImgLstView getImgLstView() {
         return imgLstView;
+    }
+    
+    public static ScoresView getScoresView() {
+        return scoresView;
     }
 
 }

@@ -67,7 +67,7 @@
 			<h3>Scores</h3>
 			<ul class="toggle">
 				<li class="icn_folder">
-					<a href="#">Show all</a>
+					<g:Anchor ui:field="listScores" href="#" text="Show all"></g:Anchor>
 				</li>
 				<!-- <li class="icn_photo"><a href="#">Gallery</a></li> <li class="icn_audio"><a 
 					href="#">Audio</a></li> <li class="icn_video"><a href="#">Video</a></li> -->
