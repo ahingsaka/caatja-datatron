@@ -44,13 +44,9 @@ public class ImgLstView extends Composite {
 
             sb.appendHtmlConstant("<table>");
 
-            // Add the contact image.
-            sb.appendHtmlConstant("<tr><td rowspan='3'>");
-            // sb.appendHtmlConstant(imageHtml);
-            sb.appendHtmlConstant("</td>");
-
             // Add the name and size.
-            sb.appendHtmlConstant("<td style='font-size:95%;'>");
+            sb.appendHtmlConstant("<tr>");
+            sb.appendHtmlConstant("<td>");
             sb.appendEscaped(value.getName());
             sb.appendHtmlConstant("</td></tr><tr><td>");
             sb.appendEscaped(value.getWidth() + " x " + value.getHeight());
