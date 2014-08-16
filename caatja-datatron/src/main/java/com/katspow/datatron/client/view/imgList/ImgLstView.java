@@ -55,8 +55,6 @@ public class ImgLstView extends Composite {
     public ImgLstView() {
         
         imgLst = new DataGrid<ImageDto>(10, (Resources) GWT.create(GridResources.class), ImageDto.KEY_PROVIDER);
-//        imgLst.setWidth("500px");
-//        imgLst.setHeight("500px");
         imgLst.setAutoHeaderRefreshDisabled(true);
         imgLst.setEmptyTableWidget(new Label("No item"));
         
@@ -125,7 +123,7 @@ public class ImgLstView extends Composite {
             }
         };
         
-//        firstNameColumn.setSortable(true);
+        firstNameColumn.setSortable(true);
         
         imgLst.addColumn(firstNameColumn, "Name");
         
@@ -136,6 +134,14 @@ public class ImgLstView extends Composite {
             }
         });
         
+        Column<ImageDto, String> dimCol = new Column<ImageDto, String>(new TextCell()) {
+            @Override
+            public String getValue(ImageDto object) {
+                return object.getWidth() + " x " + object.getHeight();
+            }
+        };
+        
+        imgLst.addColumn(dimCol, "Dimensions");
         
 //        firstNameColumn.setFieldUpdater(new FieldUpdater<ImageDto, String>() {
 //            @Override
