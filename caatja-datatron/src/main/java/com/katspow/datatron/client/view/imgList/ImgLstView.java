@@ -3,9 +3,12 @@ package com.katspow.datatron.client.view.imgList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.google.gwt.cell.client.SafeHtmlCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.Column;
@@ -143,6 +146,28 @@ public class ImgLstView extends Composite {
         
         imgLst.addColumn(dimCol, "Dimensions");
         
+        Column<ImageDto, SafeHtml> zoomCol = new Column<ImageDto, SafeHtml>(new SafeHtmlCell()) {
+            @Override
+            public SafeHtml getValue(ImageDto object) {
+                SafeHtmlBuilder sb = new SafeHtmlBuilder();
+                sb.appendHtmlConstant("<input type='image' src='images/icn_search.png' title='Search' />");
+                return sb.toSafeHtml();
+            }
+        };
+        
+        imgLst.addColumn(zoomCol, "Zoom");
+        
+        Column<ImageDto, SafeHtml> deleteCol = new Column<ImageDto, SafeHtml>(new SafeHtmlCell()) {
+            @Override
+            public SafeHtml getValue(ImageDto object) {
+                SafeHtmlBuilder sb = new SafeHtmlBuilder();
+                sb.appendHtmlConstant("<input type='image' src='images/icn_trash.png' title='Trash' />");
+                return sb.toSafeHtml();
+            }
+        };
+        
+        imgLst.addColumn(deleteCol, "Delete");
+        
 //        firstNameColumn.setFieldUpdater(new FieldUpdater<ImageDto, String>() {
 //            @Override
 //            public void update(int index, ImageDto object, String value) {
@@ -153,7 +178,10 @@ public class ImgLstView extends Composite {
 //            }
 //        });
         
-        imgLst.setColumnWidth(firstNameColumn, 20, Unit.PCT);
+        imgLst.setColumnWidth(firstNameColumn, 50, Unit.PCT);
+        imgLst.setColumnWidth(dimCol, 20, Unit.PCT);
+        imgLst.setColumnWidth(zoomCol, 15, Unit.PCT);
+        imgLst.setColumnWidth(deleteCol, 15, Unit.PCT);
 
     }
 
