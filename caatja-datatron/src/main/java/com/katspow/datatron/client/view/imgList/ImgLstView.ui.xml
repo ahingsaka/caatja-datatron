@@ -1,7 +1,6 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui"
-	xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
 	<g:HTMLPanel>
 
@@ -9,11 +8,28 @@
 			<header>
 				<h3>Uploaded images</h3>
 			</header>
-			<div class="module_content">
-				<c:CellList ui:field="imgLst"></c:CellList>
+			<div class="tab_container">
+
+				<g:DockLayoutPanel unit="EM" ui:field="dock">
+					<g:center>
+						<c:DataGrid ui:field="imgLst" styleName="tablesorter"></c:DataGrid>
+					</g:center>
+					<g:south size="3">
+						<g:HTMLPanel>
+							<table style="width:100%">
+								<tr>
+									<td align='center'>
+										<c:SimplePager ui:field='pager' />
+									</td>
+								</tr>
+							</table>
+						</g:HTMLPanel>
+					</g:south>
+				</g:DockLayoutPanel>
+
 			</div>
 		</article>
-		
+
 		<article class="module width_half">
 			<header>
 				<h3>Preview</h3>
