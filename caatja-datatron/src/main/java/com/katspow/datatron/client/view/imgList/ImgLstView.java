@@ -3,9 +3,12 @@ package com.katspow.datatron.client.view.imgList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.SafeHtmlCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -29,7 +32,10 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
+import com.katspow.datatron.client.utils.ClickSafeHtmlCell;
 import com.katspow.datatron.client.utils.GridResources;
+import com.katspow.datatron.client.view.popup.DatatronCallback;
+import com.katspow.datatron.client.view.popup.DatatronPopup;
 import com.katspow.datatron.shared.ImageDto;
 
 public class ImgLstView extends Composite {
@@ -157,13 +163,33 @@ public class ImgLstView extends Composite {
         
         imgLst.addColumn(zoomCol, "Zoom");
         
-        Column<ImageDto, SafeHtml> deleteCol = new Column<ImageDto, SafeHtml>(new SafeHtmlCell()) {
+        Column<ImageDto, SafeHtml> deleteCol = new Column<ImageDto, SafeHtml>(new ClickSafeHtmlCell()) {
             @Override
             public SafeHtml getValue(ImageDto object) {
                 SafeHtmlBuilder sb = new SafeHtmlBuilder();
                 sb.appendHtmlConstant("<input type='image' src='images/icn_trash.png' title='Trash' />");
                 return sb.toSafeHtml();
             }
+
+            @Override
+            public void onBrowserEvent(Context context, Element elem, ImageDto object, NativeEvent event) {
+                super.onBrowserEvent(context, elem, object, event);
+                if ("click".equals(event.getType())) {
+                    final DatatronPopup datatronPopup = new DatatronPopup("Confirm action", "Image <b>"
+                            + object.getName() + "</b> will be deleted");
+                    
+                    datatronPopup.setCallback(new DatatronCallback() {
+                        public void onOk() {
+//                            Datatron.setSelectedApplication(object);
+                            datatronPopup.hide();
+                        }
+
+                    });
+                    
+                    datatronPopup.center();
+                }
+            }
+            
         };
         
         imgLst.addColumn(deleteCol, "Delete");
