@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.google.gwt.cell.client.Cell.Context;
-import com.google.gwt.cell.client.SafeHtmlCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -152,19 +151,26 @@ public class ImgLstView extends Composite {
         
         imgLst.addColumn(dimCol, "Dimensions");
         
-        Column<ImageDto, SafeHtml> zoomCol = new Column<ImageDto, SafeHtml>(new SafeHtmlCell()) {
-            @Override
+        Column<ImageDto, SafeHtml> zoomCol = new Column<ImageDto, SafeHtml>(new ClickSafeHtmlCell()) {
             public SafeHtml getValue(ImageDto object) {
                 SafeHtmlBuilder sb = new SafeHtmlBuilder();
                 sb.appendHtmlConstant("<input type='image' src='images/icn_search.png' title='Search' />");
                 return sb.toSafeHtml();
+            }
+
+            @Override
+            public void onBrowserEvent(Context context, Element elem, ImageDto object, NativeEvent event) {
+                super.onBrowserEvent(context, elem, object, event);
+                if ("click".equals(event.getType())) {
+                    ImgPopup imgPopup = new ImgPopup(object);
+                    imgPopup.center();
+                }
             }
         };
         
         imgLst.addColumn(zoomCol, "Zoom");
         
         Column<ImageDto, SafeHtml> deleteCol = new Column<ImageDto, SafeHtml>(new ClickSafeHtmlCell()) {
-            @Override
             public SafeHtml getValue(ImageDto object) {
                 SafeHtmlBuilder sb = new SafeHtmlBuilder();
                 sb.appendHtmlConstant("<input type='image' src='images/icn_trash.png' title='Trash' />");
