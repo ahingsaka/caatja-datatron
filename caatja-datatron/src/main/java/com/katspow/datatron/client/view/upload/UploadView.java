@@ -110,9 +110,11 @@ public class UploadView extends Composite {
                 
                 // The server sends useful information to the client by default
                 UploadedInfo info = uploader.getServerInfo();
-                System.out.println("File name " + info.name);
-                System.out.println("File content-type " + info.ctype);
-                System.out.println("File size " + info.size);
+//                System.out.println("File name " + info.name);
+//                System.out.println("File content-type " + info.ctype);
+//                System.out.println("File size " + info.size);
+                
+                Datatron.showImgs();
                 
 //                Long appId = Long.valueOf(applstBox.getValue(applstBox.getSelectedIndex()));
 //
