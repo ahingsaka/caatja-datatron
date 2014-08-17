@@ -6,20 +6,9 @@
 			<g:HTMLPanel>
 				<div id="main">
 					<article class="module width_full">
-						<header>
-							<g:HTML ui:field="title"></g:HTML>
-						</header>
-
 						<div class="module_content">
 							<g:Image ui:field="image"></g:Image>
 						</div>
-
-						<footer>
-							<div class="submit_link">
-								<g:SubmitButton ui:field="okBtn" styleName="alt_btn">Ok</g:SubmitButton>
-							</div>
-						</footer>
-
 					</article>
 				</div>
 			</g:HTMLPanel>
