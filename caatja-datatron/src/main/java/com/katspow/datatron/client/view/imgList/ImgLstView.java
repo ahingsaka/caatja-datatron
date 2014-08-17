@@ -19,9 +19,9 @@ import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.DataGrid.Resources;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -31,10 +31,12 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
+import com.katspow.datatron.client.api.SimpleCallback;
 import com.katspow.datatron.client.utils.ClickSafeHtmlCell;
 import com.katspow.datatron.client.utils.GridResources;
-import com.katspow.datatron.client.view.popup.DatatronCallback;
+import com.katspow.datatron.client.utils.Msg;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
+import com.katspow.datatron.client.view.popup.PopupCallback;
 import com.katspow.datatron.shared.ImageDto;
 
 public class ImgLstView extends Composite {
@@ -45,6 +47,9 @@ public class ImgLstView extends Composite {
     }
 
     private static final DatatronServiceAsync dataService = GWT.create(DatatronService.class);
+    
+    @UiField
+    HTML message;
 
     @UiField(provided = true)
     DataGrid<ImageDto> imgLst;
@@ -106,16 +111,10 @@ public class ImgLstView extends Composite {
         dock.setHeight("500px");
         dock.setWidth("100%");
 
-        dataService.findAllResources(Datatron.getSelectedApplication().getId(), new AsyncCallback<List<ImageDto>>() {
-            @Override
+        dataService.findAllResources(Datatron.getSelectedApplication().getId(), new SimpleCallback<List<ImageDto>>() {
             public void onSuccess(List<ImageDto> result) {
                 imgLst.setRowData(result);
                 dataProvider.setList(result);
-            }
-
-            @Override
-            public void onFailure(Throwable caught) {
-                // TODO Auto-generated method stub
             }
         });
 
@@ -178,15 +177,23 @@ public class ImgLstView extends Composite {
             }
 
             @Override
-            public void onBrowserEvent(Context context, Element elem, ImageDto object, NativeEvent event) {
+            public void onBrowserEvent(Context context, Element elem, final ImageDto object, NativeEvent event) {
                 super.onBrowserEvent(context, elem, object, event);
                 if ("click".equals(event.getType())) {
+                    
                     final DatatronPopup datatronPopup = new DatatronPopup("Confirm action", "Image <b>"
                             + object.getName() + "</b> will be deleted");
                     
-                    datatronPopup.setCallback(new DatatronCallback() {
+                    datatronPopup.setCallback(new PopupCallback() {
                         public void onOk() {
-//                            Datatron.setSelectedApplication(object);
+                            
+                            dataService.deleteImage(object.getId(), object.getParentId(), new SimpleCallback<Void>() {
+                                public void onSuccess(Void result) {
+                                    Msg.setInfoMsg(message, "Image <b>" + object.getName() + "</b> was deleted");
+                                    imgLst.redraw();
+                                }
+                            });
+                            
                             datatronPopup.hide();
                         }
 

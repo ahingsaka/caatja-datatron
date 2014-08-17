@@ -33,7 +33,7 @@ public class DatatronPopup extends Composite {
     @UiField
     SubmitButton cancelBtn;
 
-    private DatatronCallback callback;
+    private PopupCallback callback;
 
     public DatatronPopup(String infoMsg) {
         initWidget(uiBinder.createAndBindUi(this));
@@ -90,7 +90,7 @@ public class DatatronPopup extends Composite {
         dialogBox.center();
     }
 
-    public void setCallback(DatatronCallback callback) {
+    public void setCallback(PopupCallback callback) {
         this.callback = callback;
     }
 

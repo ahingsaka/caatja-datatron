@@ -3,6 +3,8 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
 	<g:HTMLPanel>
+	
+		<g:HTML ui:field="message"></g:HTML>
 
 		<article class="module width_half">
 			<header>

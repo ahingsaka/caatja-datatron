@@ -26,7 +26,7 @@ import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
 import com.katspow.datatron.client.utils.Msg;
 import com.katspow.datatron.client.utils.TableResources;
-import com.katspow.datatron.client.view.popup.DatatronCallback;
+import com.katspow.datatron.client.view.popup.PopupCallback;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
 import com.katspow.datatron.shared.ApplicationDto;
 
@@ -81,7 +81,7 @@ public class AppLstView extends Composite {
                     final DatatronPopup datatronPopup = new DatatronPopup("Confirm action", "Application <b>"
                             + object.getName() + "</b> will be selected");
                     
-                    datatronPopup.setCallback(new DatatronCallback() {
+                    datatronPopup.setCallback(new PopupCallback() {
                         public void onOk() {
                             Datatron.setSelectedApplication(object);
                             datatronPopup.hide();
@@ -120,7 +120,7 @@ public class AppLstView extends Composite {
                     DatatronPopup datatronPopup = new DatatronPopup("Confirm action", "Application <b>"
                             + object.getName() + "</b> and all associated resources will be <b>DELETED</b> !");
                     
-                    datatronPopup.setCallback(new DatatronCallback() {
+                    datatronPopup.setCallback(new PopupCallback() {
                         public void onOk() {
                             // TODO Auto-generated method stub
                         }

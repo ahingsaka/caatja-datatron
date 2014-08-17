@@ -14,4 +14,6 @@ public interface DatatronServiceAsync {
     
     void findAllResources(Long appId, AsyncCallback<List<ImageDto>> callback);
 
+    void deleteImage(Long id, Long parentId, AsyncCallback<Void> callback);
+
 }

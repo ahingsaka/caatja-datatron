@@ -1,6 +1,6 @@
 package com.katspow.datatron.client.view.popup;
 
-public interface DatatronCallback {
+public interface PopupCallback {
     
     void onOk();
 

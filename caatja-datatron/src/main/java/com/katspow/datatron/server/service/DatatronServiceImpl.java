@@ -2,8 +2,10 @@ package com.katspow.datatron.server.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 import com.katspow.datatron.client.api.DatatronService;
@@ -75,6 +77,19 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         }
 
         return result;
+    }
+
+    @Override
+    public void deleteImage(Long id, Long parentId) {
+        Objectify ofy = ObjectifyService.ofy();
+
+        Key<DatatronApplication> application = ofy.load().type(DatatronApplication.class)
+                .ancestor(KeyFactory.createKey("RootApp", "app")).keys().first().now();
+        Key<DatatronImage> key = Key.create(application, DatatronImage.class, id);
+
+        DatatronImage res = ofy.load().key(key).now();
+        ofy.delete().entity(res).now();
+
     }
 
 }

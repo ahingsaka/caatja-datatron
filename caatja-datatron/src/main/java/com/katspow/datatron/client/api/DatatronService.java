@@ -15,5 +15,7 @@ public interface DatatronService extends RemoteService {
     List<ApplicationDto> findAllApps();
 
     List<ImageDto> findAllResources(Long appId);
+    
+    void deleteImage(Long id, Long parentId);
 
 }
