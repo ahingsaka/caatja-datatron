@@ -111,13 +111,20 @@ public class ImgLstView extends Composite {
         dock.setHeight("500px");
         dock.setWidth("100%");
 
+        loadImages();
+
+    }
+
+    private void loadImages() {
+        
+        preview.setUrl("");
+        
         dataService.findAllResources(Datatron.getSelectedApplication().getId(), new SimpleCallback<List<ImageDto>>() {
             public void onSuccess(List<ImageDto> result) {
-                imgLst.setRowData(result);
+//                imgLst.setRowData(result);
                 dataProvider.setList(result);
             }
         });
-
     }
 
     private void initTableColumns(SingleSelectionModel<ImageDto> selectionModel, ListHandler<ImageDto> sortHandler) {
@@ -190,7 +197,7 @@ public class ImgLstView extends Composite {
                             dataService.deleteImage(object.getId(), object.getParentId(), new SimpleCallback<Void>() {
                                 public void onSuccess(Void result) {
                                     Msg.setInfoMsg(message, "Image <b>" + object.getName() + "</b> was deleted");
-                                    imgLst.redraw();
+                                    loadImages();
                                 }
                             });
                             
