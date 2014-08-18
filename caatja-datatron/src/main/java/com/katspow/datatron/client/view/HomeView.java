@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.utils.Msg;
-import com.katspow.datatron.client.view.popup.CreateAppPopup;
+import com.katspow.datatron.client.view.createapp.CreateAppPopup;
 import com.katspow.datatron.shared.ApplicationDto;
 
 public class HomeView extends Composite {

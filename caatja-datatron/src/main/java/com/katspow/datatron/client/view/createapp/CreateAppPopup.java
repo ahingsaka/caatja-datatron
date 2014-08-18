@@ -1,4 +1,4 @@
-package com.katspow.datatron.client.view.popup;
+package com.katspow.datatron.client.view.createapp;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
