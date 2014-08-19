@@ -1,0 +1,29 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.backg {
+			background-color: #E0E0E3;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			height: 100%;
+		}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.backg}">
+		<div class="login-card">
+			<h1>DATATRON</h1>
+			<br />
+			<form>
+				<input type="text" name="user" placeholder="Username" />
+				<input type="password" name="pass" placeholder="Password" />
+				<g:SubmitButton ui:field="login" styleName="login login-submit">login</g:SubmitButton>
+			</form>
+
+			<div class="login-help">
+				<a href="#">Forgot Password ?</a>
+			</div>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 
