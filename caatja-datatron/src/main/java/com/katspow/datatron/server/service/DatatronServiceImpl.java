@@ -18,6 +18,9 @@ import com.katspow.datatron.shared.ImageDto;
 
 @SuppressWarnings("serial")
 public class DatatronServiceImpl extends RemoteServiceServlet implements DatatronService {
+    
+    public static final String DEFAULT_LOGIN = "datatron";
+    public static final String DEFAULT_PWD = "datatron";
 
     static {
         ObjectifyService.register(DatatronAuthentication.class);
@@ -108,8 +111,15 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
                 .ancestor(KeyFactory.createKey("RootAuth", "auth")).list();
 
         if (authentication.isEmpty()) {
-            auth.setOk(false);
+            
             auth.setFirstTime(true);
+            
+            if (DEFAULT_LOGIN.equals(login) && DEFAULT_PWD.equals(pwd)) {
+                auth.setOk(true);
+            } else {
+                auth.setOk(false);
+            }
+            
 
         } else {
             

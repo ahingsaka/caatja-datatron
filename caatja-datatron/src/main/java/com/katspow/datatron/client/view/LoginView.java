@@ -56,10 +56,12 @@ public class LoginView extends Composite {
         dataService.login(user.getText(), pass.getText(), new SimpleCallback<AuthenticationDto>() {
             public void onSuccess(AuthenticationDto result) {
                 
-                if (result.isOk()) {
+                msg.setText("");
+                
+                if (!result.isFirstTime() && result.isOk()) {
                     Datatron.showHomeView();
                     
-                } else if (result.isFirstTime()) {
+                } else if (result.isFirstTime() && result.isOk()) {
                     
                 } else {
                     msg.setText("Wrong login or/and password");
