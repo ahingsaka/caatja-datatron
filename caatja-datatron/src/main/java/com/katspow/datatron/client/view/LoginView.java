@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.TextBox;
@@ -33,6 +34,9 @@ public class LoginView extends Composite {
     
     @UiField
     PasswordTextBox pass;
+    
+    @UiField
+    Label msg;
 
     public LoginView() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -58,7 +62,7 @@ public class LoginView extends Composite {
                 } else if (result.isFirstTime()) {
                     
                 } else {
-                    
+                    msg.setText("Wrong login or/and password");
                 }
                 
             }
