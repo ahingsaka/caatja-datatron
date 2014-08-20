@@ -15,11 +15,9 @@
 		<div class="login-card">
 			<h1>DATATRON</h1>
 			<br />
-			<form>
-				<input type="text" name="user" placeholder="Username" />
-				<input type="password" name="pass" placeholder="Password" />
-				<g:SubmitButton ui:field="login" styleName="login login-submit">login</g:SubmitButton>
-			</form>
+			<g:TextBox ui:field="user"></g:TextBox>
+			<g:PasswordTextBox ui:field="pass"></g:PasswordTextBox>
+			<g:SubmitButton ui:field="login" styleName="login login-submit">login</g:SubmitButton>
 
 			<div class="login-help">
 				<a href="#">Forgot Password ?</a>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.katspow.datatron.shared.ApplicationDto;
+import com.katspow.datatron.shared.AuthenticationDto;
 import com.katspow.datatron.shared.ImageDto;
 
 public interface DatatronServiceAsync {
@@ -15,5 +16,7 @@ public interface DatatronServiceAsync {
     void findAllResources(Long appId, AsyncCallback<List<ImageDto>> callback);
 
     void deleteImage(Long id, Long parentId, AsyncCallback<Void> callback);
+
+    void login(String name, String pwd, AsyncCallback<AuthenticationDto> callback);
 
 }

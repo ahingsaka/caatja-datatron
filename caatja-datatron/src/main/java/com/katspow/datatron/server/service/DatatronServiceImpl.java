@@ -10,14 +10,17 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.server.entity.DatatronApplication;
+import com.katspow.datatron.server.entity.DatatronAuthentication;
 import com.katspow.datatron.server.entity.DatatronImage;
 import com.katspow.datatron.shared.ApplicationDto;
+import com.katspow.datatron.shared.AuthenticationDto;
 import com.katspow.datatron.shared.ImageDto;
 
 @SuppressWarnings("serial")
 public class DatatronServiceImpl extends RemoteServiceServlet implements DatatronService {
 
     static {
+        ObjectifyService.register(DatatronAuthentication.class);
         ObjectifyService.register(DatatronApplication.class);
         ObjectifyService.register(DatatronImage.class);
     }
@@ -90,6 +93,54 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         DatatronImage res = ofy.load().key(key).now();
         ofy.delete().entity(res).now();
 
+    }
+
+    @Override
+    public AuthenticationDto login(String login, String pwd) throws IllegalArgumentException {
+        
+        AuthenticationDto auth = new AuthenticationDto();
+
+        login = escapeHtml(login);
+        pwd = escapeHtml(pwd);
+
+        Objectify ofy = ObjectifyService.ofy();
+        List<DatatronAuthentication> authentication = ofy.load().type(DatatronAuthentication.class)
+                .ancestor(KeyFactory.createKey("RootAuth", "auth")).list();
+
+        if (authentication.isEmpty()) {
+            auth.setOk(false);
+            auth.setFirstTime(true);
+
+        } else {
+            
+            auth.setFirstTime(false);
+            
+            DatatronAuthentication gruiAuthentication = authentication.get(0);
+
+            if (gruiAuthentication.getLogin().equals(login) && gruiAuthentication.getPassword().equals(pwd)) {
+                auth.setOk(true);
+            } else {
+                auth.setOk(false);
+            }
+            
+        }
+
+        return auth;
+    }
+
+    /**
+     * Escape an html string. Escaping data received from the client helps to
+     * prevent cross-site script vulnerabilities.
+     * 
+     * @param html
+     *            the html string to escape
+     * @return the escaped string
+     */
+    private String escapeHtml(String html) {
+        if (html == null) {
+            return null;
+        }
+        return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     }
 
 }
