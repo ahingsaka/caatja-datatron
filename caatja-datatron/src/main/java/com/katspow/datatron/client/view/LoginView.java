@@ -15,6 +15,7 @@ import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
 import com.katspow.datatron.client.api.SimpleCallback;
+import com.katspow.datatron.client.view.popup.DatatronPopup;
 import com.katspow.datatron.shared.AuthenticationDto;
 
 public class LoginView extends Composite {
@@ -62,6 +63,9 @@ public class LoginView extends Composite {
                     Datatron.showHomeView();
                     
                 } else if (result.isFirstTime() && result.isOk()) {
+                    Datatron.showHomeView();
+                    DatatronPopup popup = new DatatronPopup("Please change login and password");
+                    popup.center();
                     
                 } else {
                     msg.setText("Wrong login or/and password");
