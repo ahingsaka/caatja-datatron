@@ -8,6 +8,7 @@ import com.katspow.datatron.client.view.applist.AppLstView;
 import com.katspow.datatron.client.view.data.DataView;
 import com.katspow.datatron.client.view.imgList.ImgLstView;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
+import com.katspow.datatron.client.view.pwd.PasswordView;
 import com.katspow.datatron.client.view.scores.ScoresView;
 import com.katspow.datatron.client.view.upload.UploadView;
 import com.katspow.datatron.shared.ApplicationDto;
@@ -27,6 +28,8 @@ public class Datatron implements EntryPoint {
     private static ScoresView scoresView;
 
     private static DataView dataView;
+    
+    private static PasswordView passwordView;
 
     @Override
     public void onModuleLoad() {
@@ -82,6 +85,11 @@ public class Datatron implements EntryPoint {
             getHomeView().setViewInMain(dataView);
         }
     }
+    
+    public static void showPasswordView() {
+        passwordView = new PasswordView();
+        getHomeView().setViewInMain(passwordView);
+    }
 
     private static boolean checkSelectedApp() {
         if (selectedApplication == null) {
@@ -115,6 +123,10 @@ public class Datatron implements EntryPoint {
 
     public static DataView getDataView() {
         return dataView;
+    }
+    
+    public static PasswordView getPasswordView() {
+        return passwordView;
     }
 
     public static void showHomeView() {

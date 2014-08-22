@@ -64,6 +64,7 @@ public class LoginView extends Composite {
                     
                 } else if (result.isFirstTime() && result.isOk()) {
                     Datatron.showHomeView();
+                    Datatron.showPasswordView();
                     DatatronPopup popup = new DatatronPopup("Please change login and password");
                     popup.center();
                     

@@ -50,6 +50,9 @@ public class HomeView extends Composite {
     
     @UiField
     Anchor listData;
+    
+    @UiField
+    Anchor changeDatatronPwd;
 
     @UiField
     static HTMLPanel mainPanel;
@@ -95,6 +98,12 @@ public class HomeView extends Composite {
         listData.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 Datatron.showData();
+            }
+        });
+        
+        changeDatatronPwd.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                Datatron.showPasswordView();
             }
         });
         
