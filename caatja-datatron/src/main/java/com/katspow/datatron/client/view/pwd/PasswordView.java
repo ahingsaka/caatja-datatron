@@ -19,20 +19,16 @@ public class PasswordView extends Composite {
     }
     
     @UiField
-    TextBox currentPwd;
+    TextBox login;
     
     @UiField
     TextBox newPwd;
-    
-    @UiField
-    TextBox confirmPwd;
     
     @UiField
     SubmitButton saveBtn;
 
     public PasswordView() {
         initWidget(uiBinder.createAndBindUi(this));
-        currentPwd.setEnabled(false);
         
         saveBtn.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {

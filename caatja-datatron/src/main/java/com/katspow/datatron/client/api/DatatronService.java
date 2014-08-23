@@ -20,5 +20,7 @@ public interface DatatronService extends RemoteService {
     List<ImageDto> findAllResources(Long appId);
     
     void deleteImage(Long id, Long parentId);
+    
+    void changeLogin(String login, String password, String question, String answer);
 
 }

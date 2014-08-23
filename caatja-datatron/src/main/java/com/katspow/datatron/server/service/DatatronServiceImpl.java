@@ -153,4 +153,11 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     }
 
+    @Override
+    public void changeLogin(String login, String password, String question, String answer) {
+        Objectify ofy = ObjectifyService.ofy();
+        DatatronAuthentication gruiAuthentication = new DatatronAuthentication("1", login, password, question, answer);
+        ofy.save().entity(gruiAuthentication);
+    }
+
 }

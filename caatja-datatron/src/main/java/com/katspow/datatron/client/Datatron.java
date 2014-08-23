@@ -1,7 +1,10 @@
 package com.katspow.datatron.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.katspow.datatron.client.api.DatatronService;
+import com.katspow.datatron.client.api.DatatronServiceAsync;
 import com.katspow.datatron.client.view.HomeView;
 import com.katspow.datatron.client.view.LoginView;
 import com.katspow.datatron.client.view.applist.AppLstView;
@@ -30,6 +33,8 @@ public class Datatron implements EntryPoint {
     private static DataView dataView;
     
     private static PasswordView passwordView;
+    
+    public static final DatatronServiceAsync dataService = GWT.create(DatatronService.class);
 
     @Override
     public void onModuleLoad() {
