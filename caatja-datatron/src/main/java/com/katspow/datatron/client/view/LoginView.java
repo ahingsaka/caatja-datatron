@@ -24,27 +24,27 @@ public class LoginView extends Composite {
 
     interface LoginViewUiBinder extends UiBinder<Widget, LoginView> {
     }
-    
+
     private static final DatatronServiceAsync dataService = GWT.create(DatatronService.class);
-    
+
     @UiField
     SubmitButton login;
-    
+
     @UiField
     TextBox user;
-    
+
     @UiField
     PasswordTextBox pass;
-    
+
     @UiField
     Label msg;
 
     public LoginView() {
         initWidget(uiBinder.createAndBindUi(this));
-        
+
         user.getElement().setPropertyString("placeholder", "Username");
         pass.getElement().setPropertyString("placeholder", "Password");
-        
+
         login.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 callAuthService();
@@ -56,25 +56,28 @@ public class LoginView extends Composite {
 
         dataService.login(user.getText(), pass.getText(), new SimpleCallback<AuthenticationDto>() {
             public void onSuccess(AuthenticationDto result) {
-                
+
                 msg.setText("");
-                
+
                 if (!result.isFirstTime() && result.isOk()) {
                     Datatron.showHomeView();
-                    
+
                 } else if (result.isFirstTime() && result.isOk()) {
                     Datatron.showHomeView();
                     Datatron.showPasswordView();
-                    DatatronPopup popup = new DatatronPopup("Please change login and password");
-                    popup.center();
+                    Datatron.getHomeView().displayMenuLinks(false);
                     
+                    DatatronPopup popup = new DatatronPopup(
+                            "First time accessing DATATRON. Please change login and password !");
+                    popup.center();
+
                 } else {
                     msg.setText("Wrong login or/and password");
                 }
-                
+
             }
         });
-        
+
     }
 
 }

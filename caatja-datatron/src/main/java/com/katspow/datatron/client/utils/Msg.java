@@ -11,5 +11,5 @@ public class Msg {
     public static void setErrorMsg(HTML html, String msg) {
         html.setHTML("<h4 class='alert_error'>" + msg + "</h4>");
     }
-
+    
 }

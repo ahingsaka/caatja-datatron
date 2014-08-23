@@ -41,7 +41,8 @@
 				onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;"> </form> 
 				<hr/> -->
 				
-			<h3>Applications</h3>
+			<g:HTML ui:field="applications"></g:HTML>
+			
 			<ul class="toggle">
 				<li class="icn_categories">
 					<g:Anchor ui:field="listApp" href="#" text="List"></g:Anchor>
@@ -53,7 +54,7 @@
 					<g:Anchor ui:field="changePwd" href="#" text="Password"></g:Anchor>
 				</li>
 			</ul>
-			<h3>Images</h3>
+			<g:HTML ui:field="images"></g:HTML>
 			<ul class="toggle">
 				<li class="icn_photo">
 					<g:Anchor ui:field="listImg" href="#" text="View all"></g:Anchor>
@@ -64,7 +65,7 @@
 				<!-- <li class="icn_add_user"><a href="#">Add New User</a></li> <li class="icn_view_users"><a 
 					href="#">View Users</a></li> <li class="icn_profile"><a href="#">Your Profile</a></li> -->
 			</ul>
-			<h3>Scores</h3>
+			<g:HTML ui:field="scores"></g:HTML>
 			<ul class="toggle">
 				<li class="icn_folder">
 					<g:Anchor ui:field="listScores" href="#" text="Show all"></g:Anchor>
@@ -72,7 +73,7 @@
 				<!-- <li class="icn_photo"><a href="#">Gallery</a></li> <li class="icn_audio"><a 
 					href="#">Audio</a></li> <li class="icn_video"><a href="#">Video</a></li> -->
 			</ul>
-			<h3>Data</h3>
+			<g:HTML ui:field="data"></g:HTML>
 			<ul class="toggle">
 				<li class="icn_folder">
 					<g:Anchor ui:field="listData" href="#" text="Show all"></g:Anchor>
@@ -80,7 +81,7 @@
 				<!-- <li class="icn_settings"><a href="#">Options</a></li> <li class="icn_security"><a 
 					href="#">Security</a></li> <li class="icn_jump_back"><a href="#">Logout</a></li> -->
 			</ul>
-			<h3>OTHER</h3>
+			<g:HTML ui:field="other"></g:HTML>
 			<ul class="toggle">
 				<li class="icn_security">
 					<g:Anchor ui:field="changeDatatronPwd" href="#" text="Datatron Password"></g:Anchor>
