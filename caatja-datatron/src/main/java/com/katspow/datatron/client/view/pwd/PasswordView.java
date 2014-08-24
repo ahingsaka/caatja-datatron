@@ -21,37 +21,63 @@ public class PasswordView extends Composite {
 
     interface PasswordViewUiBinder extends UiBinder<Widget, PasswordView> {
     }
-    
+
     @UiField
     HTML infoMsg;
-    
+
     @UiField
     TextBox login;
-    
+
     @UiField
     TextBox newPwd;
-    
+
     @UiField
     TextBox question;
-    
+
     @UiField
     TextBox answer;
-    
+
     @UiField
     SubmitButton saveBtn;
 
     public PasswordView() {
         initWidget(uiBinder.createAndBindUi(this));
-        
+
         saveBtn.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
-                Datatron.showHomeView();
+                changeAuth();
             }
         });
-        
+
         loadAuth();
     }
-    
+
+    protected void changeAuth() {
+
+        String sLogin = login.getText();
+        String pwd = newPwd.getText();
+        String sQuestion = question.getText();
+        String sAnswer = answer.getText();
+
+        if (sLogin.isEmpty() || pwd.isEmpty()) {
+            Msg.setErrorMsg(infoMsg, "Login and password are mandatory");
+            return;
+        }
+        
+        if (!sQuestion.isEmpty() || !sAnswer.isEmpty()) {
+            if (sQuestion.isEmpty() || sAnswer.isEmpty()) {
+                Msg.setErrorMsg(infoMsg, "Fill both question and answer when you fill one of them");
+                return;
+            }
+        }
+
+        Datatron.dataService.changeLogin(sLogin, pwd, sQuestion, sAnswer, new SimpleCallback<Void>() {
+            public void onSuccess(Void result) {
+                Msg.setInfoMsg(infoMsg, "Your credentials were succesfully updated");
+            }
+        });
+    }
+
     private void loadAuth() {
         Datatron.dataService.getInfo(new SimpleCallback<AuthenticationDto>() {
             public void onSuccess(AuthenticationDto authenticationDto) {

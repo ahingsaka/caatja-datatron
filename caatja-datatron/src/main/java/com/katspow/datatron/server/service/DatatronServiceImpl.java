@@ -113,7 +113,7 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
             auth.setLogin(datatronAuthentication.getLogin());
             auth.setPassword(datatronAuthentication.getPassword());
             auth.setQuestion(datatronAuthentication.getQuestion());
-            auth.setPassword(datatronAuthentication.getAnswer());
+            auth.setAnswer(datatronAuthentication.getAnswer());
             
             return auth;
         }
@@ -146,9 +146,9 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
             
             auth.setFirstTime(false);
             
-            DatatronAuthentication gruiAuthentication = authentication.get(0);
+            DatatronAuthentication datatronAuthentication = authentication.get(0);
 
-            if (gruiAuthentication.getLogin().equals(login) && gruiAuthentication.getPassword().equals(pwd)) {
+            if (datatronAuthentication.getLogin().equals(login) && datatronAuthentication.getPassword().equals(pwd)) {
                 auth.setOk(true);
             } else {
                 auth.setOk(false);
