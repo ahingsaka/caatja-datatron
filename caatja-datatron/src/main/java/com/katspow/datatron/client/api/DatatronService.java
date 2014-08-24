@@ -11,7 +11,7 @@ import com.katspow.datatron.shared.ImageDto;
 @RemoteServiceRelativePath("service")
 public interface DatatronService extends RemoteService {
     
-    AuthenticationDto login(String name, String pwd) throws IllegalArgumentException;
+    AuthenticationDto login(String name, String pwd, String answer);
     
     AuthenticationDto getInfo();
     

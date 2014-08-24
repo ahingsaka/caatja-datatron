@@ -75,6 +75,7 @@ public class LoginView extends Composite {
         
         forgot.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
+                pass.setText(null);
                 getQuestion();
             }
         });
@@ -90,12 +91,18 @@ public class LoginView extends Composite {
                 pass.setVisible(true);
                 login.setVisible(true);
                 forgot.setVisible(true);
+                
+                answer.setText(null);
             }
         });
         
         forgetPwd.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
-                callAuthService();
+                if (answer.getText().isEmpty()) {
+                    msg.setText("Please give an answer");
+                } else {
+                    callAuthService();
+                }
             }
         });
     }
@@ -112,13 +119,14 @@ public class LoginView extends Composite {
                 forgot.setVisible(false);
                 
                 back.setVisible(true);
-                forgetPwd.setVisible(true);
                 
                 if (result == null) {
                     question.getElement().setPropertyString("placeholder", "No question defined");
+                    forgetPwd.setVisible(false);
                 } else {
                     question.getElement().setPropertyString("placeholder", result);
                     answer.setVisible(true);
+                    forgetPwd.setVisible(true);
                 }
             }
         });
@@ -127,7 +135,7 @@ public class LoginView extends Composite {
 
     protected void callAuthService() {
         
-        dataService.login(user.getText(), pass.getText(), new SimpleCallback<AuthenticationDto>() {
+        dataService.login(user.getText(), pass.getText(), answer.getText(),new SimpleCallback<AuthenticationDto>() {
             public void onSuccess(AuthenticationDto result) {
 
                 msg.setText("");
@@ -142,7 +150,7 @@ public class LoginView extends Composite {
                     Datatron.getHomeView().displayMenuLinks(false);
                     
                 } else {
-                    msg.setText("Wrong login or/and password");
+                    msg.setText("Authentication error");
                 }
 
             }

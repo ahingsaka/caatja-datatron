@@ -18,7 +18,7 @@ import com.katspow.datatron.shared.ImageDto;
 
 @SuppressWarnings("serial")
 public class DatatronServiceImpl extends RemoteServiceServlet implements DatatronService {
-    
+
     public static final String DEFAULT_LOGIN = "datatron";
     public static final String DEFAULT_PWD = "datatron";
 
@@ -97,7 +97,7 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         ofy.delete().entity(res).now();
 
     }
-    
+
     @Override
     public AuthenticationDto getInfo() {
         Objectify ofy = ObjectifyService.ofy();
@@ -108,52 +108,56 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
             return null;
         } else {
             DatatronAuthentication datatronAuthentication = authentication.get(0);
-            
+
             AuthenticationDto auth = new AuthenticationDto();
             auth.setLogin(datatronAuthentication.getLogin());
             auth.setPassword(datatronAuthentication.getPassword());
             auth.setQuestion(datatronAuthentication.getQuestion());
             auth.setAnswer(datatronAuthentication.getAnswer());
-            
+
             return auth;
         }
     }
 
     @Override
-    public AuthenticationDto login(String login, String pwd) throws IllegalArgumentException {
-        
+    public AuthenticationDto login(String login, String pwd, String answer) throws IllegalArgumentException {
+
         AuthenticationDto auth = new AuthenticationDto();
 
         login = escapeHtml(login);
         pwd = escapeHtml(pwd);
+        answer = escapeHtml(answer);
 
         Objectify ofy = ObjectifyService.ofy();
         List<DatatronAuthentication> authentication = ofy.load().type(DatatronAuthentication.class)
                 .ancestor(KeyFactory.createKey("RootAuth", "auth")).list();
 
         if (authentication.isEmpty()) {
-            
+
             auth.setFirstTime(true);
-            
-            if (DEFAULT_LOGIN.equals(login) && DEFAULT_PWD.equals(pwd)) {
-                auth.setOk(true);
-            } else {
-                auth.setOk(false);
-            }
-            
+
+            boolean loginOk = DEFAULT_LOGIN.equals(login) && DEFAULT_PWD.equals(pwd);
+            auth.setOk(loginOk);
 
         } else {
-            
+
             auth.setFirstTime(false);
-            
+
             DatatronAuthentication datatronAuthentication = authentication.get(0);
 
-            if (datatronAuthentication.getLogin().equals(login) && datatronAuthentication.getPassword().equals(pwd)) {
-                auth.setOk(true);
+            if (!answer.isEmpty()) {
+
+                boolean answerOk = answer.equals(datatronAuthentication.getAnswer());
+                auth.setOk(answerOk);
+
             } else {
-                auth.setOk(false);
+
+                boolean loginOk = datatronAuthentication.getLogin().equals(login)
+                        && datatronAuthentication.getPassword().equals(pwd);
+                auth.setOk(loginOk);
+
             }
-            
+
         }
 
         return auth;
@@ -186,17 +190,17 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         Objectify ofy = ObjectifyService.ofy();
         List<DatatronAuthentication> authentication = ofy.load().type(DatatronAuthentication.class)
                 .ancestor(KeyFactory.createKey("RootAuth", "auth")).list();
-        
+
         DatatronAuthentication datatronAuthentication = authentication.get(0);
-        
+
         if (datatronAuthentication != null) {
             String question = datatronAuthentication.getQuestion();
             return question;
-            
+
         } else {
             return null;
         }
-        
+
     }
 
 }

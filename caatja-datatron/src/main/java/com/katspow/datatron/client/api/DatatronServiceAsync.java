@@ -17,7 +17,7 @@ public interface DatatronServiceAsync {
 
     void deleteImage(Long id, Long parentId, AsyncCallback<Void> callback);
 
-    void login(String name, String pwd, AsyncCallback<AuthenticationDto> callback);
+    void login(String name, String pwd, String answer, AsyncCallback<AuthenticationDto> callback);
 
     void changeLogin(String login, String password, String question, String answer, AsyncCallback<Void> callback);
 
