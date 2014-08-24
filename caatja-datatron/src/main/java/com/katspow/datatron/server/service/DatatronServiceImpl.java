@@ -190,15 +190,14 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         Objectify ofy = ObjectifyService.ofy();
         List<DatatronAuthentication> authentication = ofy.load().type(DatatronAuthentication.class)
                 .ancestor(KeyFactory.createKey("RootAuth", "auth")).list();
-
-        DatatronAuthentication datatronAuthentication = authentication.get(0);
-
-        if (datatronAuthentication != null) {
+        
+        if (authentication.isEmpty()) {
+            return null;
+            
+        } else {
+            DatatronAuthentication datatronAuthentication = authentication.get(0);
             String question = datatronAuthentication.getQuestion();
             return question;
-
-        } else {
-            return null;
         }
 
     }
