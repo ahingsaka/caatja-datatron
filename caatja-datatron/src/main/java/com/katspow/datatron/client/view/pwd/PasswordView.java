@@ -11,7 +11,9 @@ import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.katspow.datatron.client.Datatron;
+import com.katspow.datatron.client.api.SimpleCallback;
 import com.katspow.datatron.client.utils.Msg;
+import com.katspow.datatron.shared.AuthenticationDto;
 
 public class PasswordView extends Composite {
 
@@ -30,6 +32,12 @@ public class PasswordView extends Composite {
     TextBox newPwd;
     
     @UiField
+    TextBox question;
+    
+    @UiField
+    TextBox answer;
+    
+    @UiField
     SubmitButton saveBtn;
 
     public PasswordView() {
@@ -40,8 +48,23 @@ public class PasswordView extends Composite {
                 Datatron.showHomeView();
             }
         });
+        
+        loadAuth();
     }
     
+    private void loadAuth() {
+        Datatron.dataService.getInfo(new SimpleCallback<AuthenticationDto>() {
+            public void onSuccess(AuthenticationDto authenticationDto) {
+                if (authenticationDto != null) {
+                    login.setText(authenticationDto.getLogin());
+                    newPwd.setText(authenticationDto.getPassword());
+                    question.setText(authenticationDto.getQuestion());
+                    answer.setText(authenticationDto.getAnswer());
+                }
+            }
+        });
+    }
+
     public void showFirstTimeMsg() {
         Msg.setInfoMsg(infoMsg, "First time accessing DATATRON. Please change login and password !");
     }

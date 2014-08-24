@@ -21,4 +21,6 @@ public interface DatatronServiceAsync {
 
     void changeLogin(String login, String password, String question, String answer, AsyncCallback<Void> callback);
 
+    void getInfo(AsyncCallback<AuthenticationDto> callback);
+
 }

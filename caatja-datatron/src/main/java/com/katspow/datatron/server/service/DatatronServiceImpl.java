@@ -97,6 +97,27 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         ofy.delete().entity(res).now();
 
     }
+    
+    @Override
+    public AuthenticationDto getInfo() {
+        Objectify ofy = ObjectifyService.ofy();
+        List<DatatronAuthentication> authentication = ofy.load().type(DatatronAuthentication.class)
+                .ancestor(KeyFactory.createKey("RootAuth", "auth")).list();
+
+        if (authentication.isEmpty()) {
+            return null;
+        } else {
+            DatatronAuthentication datatronAuthentication = authentication.get(0);
+            
+            AuthenticationDto auth = new AuthenticationDto();
+            auth.setLogin(datatronAuthentication.getLogin());
+            auth.setPassword(datatronAuthentication.getPassword());
+            auth.setQuestion(datatronAuthentication.getQuestion());
+            auth.setPassword(datatronAuthentication.getAnswer());
+            
+            return auth;
+        }
+    }
 
     @Override
     public AuthenticationDto login(String login, String pwd) throws IllegalArgumentException {

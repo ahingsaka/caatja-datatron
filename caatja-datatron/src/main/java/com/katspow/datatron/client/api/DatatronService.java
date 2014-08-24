@@ -12,7 +12,9 @@ import com.katspow.datatron.shared.ImageDto;
 public interface DatatronService extends RemoteService {
     
     AuthenticationDto login(String name, String pwd) throws IllegalArgumentException;
-
+    
+    AuthenticationDto getInfo();
+    
     boolean createApplication(String name);
 
     List<ApplicationDto> findAllApps();
