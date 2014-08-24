@@ -23,4 +23,6 @@ public interface DatatronServiceAsync {
 
     void getInfo(AsyncCallback<AuthenticationDto> callback);
 
+    void getQuestion(AsyncCallback<String> callback);
+
 }

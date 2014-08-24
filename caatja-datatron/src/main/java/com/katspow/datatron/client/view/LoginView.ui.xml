@@ -21,9 +21,18 @@
 			<br />
 		
 			<div class="login-help">
-				<a href="#">Forgot Password ?</a>
+				<g:Anchor ui:field="forgot">Forgot Password ?</g:Anchor>
 			</div>
+			
+			<g:TextBox ui:field="question"></g:TextBox>
+			<g:TextBox ui:field="answer"></g:TextBox>
+			<g:SubmitButton ui:field="forgetPwd" styleName="login login-submit">login</g:SubmitButton>
+			<div class="login-help">
+				<g:Anchor ui:field="back">Back to Login/Password</g:Anchor>
+			</div>
+			
 			<br />
+			
 			<div class="login-help">
 				<g:Label ui:field="msg"></g:Label>
 			</div>

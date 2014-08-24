@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -15,7 +16,6 @@ import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
 import com.katspow.datatron.client.api.SimpleCallback;
-import com.katspow.datatron.client.view.popup.DatatronPopup;
 import com.katspow.datatron.shared.AuthenticationDto;
 
 public class LoginView extends Composite {
@@ -37,10 +37,32 @@ public class LoginView extends Composite {
     PasswordTextBox pass;
 
     @UiField
+    Anchor forgot;
+    
+    @UiField
     Label msg;
+    
+    @UiField
+    TextBox question;
+    
+    @UiField
+    TextBox answer;
+    
+    @UiField
+    SubmitButton forgetPwd;
+    
+    @UiField
+    Anchor back;
+    
 
     public LoginView() {
         initWidget(uiBinder.createAndBindUi(this));
+        
+        question.setVisible(false);
+        question.setEnabled(false);
+        answer.setVisible(false);
+        back.setVisible(false);
+        forgetPwd.setVisible(false);
 
         user.getElement().setPropertyString("placeholder", "Username");
         pass.getElement().setPropertyString("placeholder", "Password");
@@ -50,10 +72,61 @@ public class LoginView extends Composite {
                 callAuthService();
             }
         });
+        
+        forgot.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                getQuestion();
+            }
+        });
+        
+        back.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                question.setVisible(false);
+                answer.setVisible(false);
+                back.setVisible(false);
+                forgetPwd.setVisible(false);
+                
+                user.setVisible(true);
+                pass.setVisible(true);
+                login.setVisible(true);
+                forgot.setVisible(true);
+            }
+        });
+        
+        forgetPwd.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                callAuthService();
+            }
+        });
+    }
+
+    protected void getQuestion() {
+        
+        dataService.getQuestion(new SimpleCallback<String>() {
+            public void onSuccess(String result) {
+                question.setVisible(true);
+                
+                user.setVisible(false);
+                pass.setVisible(false);
+                login.setVisible(false);
+                forgot.setVisible(false);
+                
+                back.setVisible(true);
+                forgetPwd.setVisible(true);
+                
+                if (result == null) {
+                    question.getElement().setPropertyString("placeholder", "No question defined");
+                } else {
+                    question.getElement().setPropertyString("placeholder", result);
+                    answer.setVisible(true);
+                }
+            }
+        });
+        
     }
 
     protected void callAuthService() {
-
+        
         dataService.login(user.getText(), pass.getText(), new SimpleCallback<AuthenticationDto>() {
             public void onSuccess(AuthenticationDto result) {
 

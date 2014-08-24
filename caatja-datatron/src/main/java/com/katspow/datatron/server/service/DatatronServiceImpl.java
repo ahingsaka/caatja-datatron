@@ -181,4 +181,22 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         ofy.save().entity(gruiAuthentication);
     }
 
+    @Override
+    public String getQuestion() {
+        Objectify ofy = ObjectifyService.ofy();
+        List<DatatronAuthentication> authentication = ofy.load().type(DatatronAuthentication.class)
+                .ancestor(KeyFactory.createKey("RootAuth", "auth")).list();
+        
+        DatatronAuthentication datatronAuthentication = authentication.get(0);
+        
+        if (datatronAuthentication != null) {
+            String question = datatronAuthentication.getQuestion();
+            return question;
+            
+        } else {
+            return null;
+        }
+        
+    }
+
 }
