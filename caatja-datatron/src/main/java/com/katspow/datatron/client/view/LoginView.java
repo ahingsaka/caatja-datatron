@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
-import com.katspow.datatron.client.api.SimpleCallback;
+import com.katspow.datatron.client.api.SimpleLoadingCallback;
 import com.katspow.datatron.shared.AuthenticationDto;
 
 public class LoginView extends Composite {
@@ -109,8 +109,10 @@ public class LoginView extends Composite {
 
     protected void getQuestion() {
         
-        dataService.getQuestion(new SimpleCallback<String>() {
-            public void onSuccess(String result) {
+        Datatron.loading();
+        
+        dataService.getQuestion(new SimpleLoadingCallback<String>() {
+            public void onOk(String result) {
                 question.setVisible(true);
                 
                 user.setVisible(false);
@@ -135,8 +137,9 @@ public class LoginView extends Composite {
 
     protected void callAuthService() {
         
-        dataService.login(user.getText(), pass.getText(), answer.getText(),new SimpleCallback<AuthenticationDto>() {
-            public void onSuccess(AuthenticationDto result) {
+        Datatron.loading();
+        dataService.login(user.getText(), pass.getText(), answer.getText(),new SimpleLoadingCallback<AuthenticationDto>() {
+            public void onOk(AuthenticationDto result) {
 
                 msg.setText("");
 

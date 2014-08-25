@@ -11,6 +11,7 @@ import com.katspow.datatron.client.view.applist.AppLstView;
 import com.katspow.datatron.client.view.data.DataView;
 import com.katspow.datatron.client.view.imgList.ImgLstView;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
+import com.katspow.datatron.client.view.popup.Spinner;
 import com.katspow.datatron.client.view.pwd.PasswordView;
 import com.katspow.datatron.client.view.scores.ScoresView;
 import com.katspow.datatron.client.view.upload.UploadView;
@@ -31,9 +32,11 @@ public class Datatron implements EntryPoint {
     private static ScoresView scoresView;
 
     private static DataView dataView;
-    
+
     private static PasswordView passwordView;
-    
+
+    private static Spinner spinner;
+
     public static final DatatronServiceAsync dataService = GWT.create(DatatronService.class);
 
     @Override
@@ -90,7 +93,7 @@ public class Datatron implements EntryPoint {
             getHomeView().setViewInMain(dataView);
         }
     }
-    
+
     public static void showPasswordView() {
         passwordView = new PasswordView();
         getHomeView().setViewInMain(passwordView);
@@ -129,9 +132,25 @@ public class Datatron implements EntryPoint {
     public static DataView getDataView() {
         return dataView;
     }
-    
+
     public static PasswordView getPasswordView() {
         return passwordView;
+    }
+
+    public static void loading() {
+        getSpinner().show();
+    }
+    
+    public static void stopLoading() {
+        getSpinner().hide();
+    }
+
+    public static Spinner getSpinner() {
+        if (spinner == null) {
+            spinner = new Spinner();
+        }
+
+        return spinner;
     }
 
     public static void showHomeView() {

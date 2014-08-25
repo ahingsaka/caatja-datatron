@@ -32,6 +32,7 @@ import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
 import com.katspow.datatron.client.api.SimpleCallback;
+import com.katspow.datatron.client.api.SimpleLoadingCallback;
 import com.katspow.datatron.client.utils.ClickSafeHtmlCell;
 import com.katspow.datatron.client.utils.GridResources;
 import com.katspow.datatron.client.utils.Msg;
@@ -119,8 +120,10 @@ public class ImgLstView extends Composite {
         
         preview.setUrl("");
         
-        dataService.findAllResources(Datatron.getSelectedApplication().getId(), new SimpleCallback<List<ImageDto>>() {
-            public void onSuccess(List<ImageDto> result) {
+        Datatron.loading();
+        
+        dataService.findAllResources(Datatron.getSelectedApplication().getId(), new SimpleLoadingCallback<List<ImageDto>>() {
+            public void onOk(List<ImageDto> result) {
 //                imgLst.setRowData(result);
                 dataProvider.setList(result);
             }

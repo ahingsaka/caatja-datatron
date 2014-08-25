@@ -23,7 +23,7 @@ public class HomeView extends Composite {
     private static final String WELCOME = "Welcome to the DATATRON ! Please select an action on the left menu.";
 
     private static MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
-
+    
     @UiField
     HTML selectedApplication;
 
@@ -77,7 +77,7 @@ public class HomeView extends Composite {
 
     public HomeView() {
         initWidget(uiBinder.createAndBindUi(this));
-
+        
         setMenuLinkMsg(applications, "Applications");
         setMenuLinkMsg(images, "Images");
         setMenuLinkMsg(scores, "Scores");
@@ -178,5 +178,5 @@ public class HomeView extends Composite {
         listData.setVisible(visible);
         changeDatatronPwd.setVisible(visible);
     }
-
+    
 }
