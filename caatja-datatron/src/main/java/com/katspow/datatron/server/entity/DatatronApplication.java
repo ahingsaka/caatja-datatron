@@ -19,11 +19,14 @@ public class DatatronApplication {
     @Index
     private String name;
     
+    private String password;
+    
     public DatatronApplication() {
     }
 
-    public DatatronApplication(String name) {
+    public DatatronApplication(String name, String password) {
         this.name = name;
+        this.password = password;
         this.parent = KeyFactory.createKey("RootApp", "app");
     }
     
@@ -37,6 +40,14 @@ public class DatatronApplication {
     
     public Key getParent() {
         return parent;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

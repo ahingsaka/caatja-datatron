@@ -35,6 +35,9 @@ public class CreateAppPopup extends Composite {
 
     @UiField
     TextBox nameFld;
+    
+    @UiField
+    TextBox pwdFld;
 
     @UiField
     HTML errorMsg;
@@ -69,13 +72,19 @@ public class CreateAppPopup extends Composite {
     protected void callService() {
 
         String text = nameFld.getText();
+        String password = pwdFld.getText();
 
         if (text.isEmpty()) {
             Msg.setErrorMsg(errorMsg, "Please enter a name");
             return;
         }
+        
+        if (password.isEmpty()) {
+            Msg.setErrorMsg(errorMsg, "Please enter a password");
+            return;
+        }
 
-        dataService.createApplication(text, new AsyncCallback<Boolean>() {
+        dataService.createApplication(text, password, new AsyncCallback<Boolean>() {
             public void onSuccess(Boolean result) {
                 if (result) {
                     nameFld.setText("");

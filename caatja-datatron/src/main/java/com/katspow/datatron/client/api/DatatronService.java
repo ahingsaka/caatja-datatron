@@ -17,7 +17,7 @@ public interface DatatronService extends RemoteService {
     
     String getQuestion();
     
-    boolean createApplication(String name);
+    boolean createApplication(String name, String application);
 
     List<ApplicationDto> findAllApps();
 

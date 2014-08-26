@@ -16,6 +16,11 @@
 								<g:TextBox ui:field="nameFld"></g:TextBox>
 							</fieldset>
 							
+							<fieldset>
+								<label>Password</label>
+								<g:TextBox ui:field="pwdFld"></g:TextBox>
+							</fieldset>
+							
 							<g:HTML ui:field="errorMsg"></g:HTML>
 							
 						</div>

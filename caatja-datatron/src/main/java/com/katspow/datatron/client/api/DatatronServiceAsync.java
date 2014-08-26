@@ -9,7 +9,7 @@ import com.katspow.datatron.shared.ImageDto;
 
 public interface DatatronServiceAsync {
     
-    void createApplication(String name, AsyncCallback<Boolean> callback);
+    void createApplication(String name, String password, AsyncCallback<Boolean> callback);
 
     void findAllApps(AsyncCallback<List<ApplicationDto>> callback);
     

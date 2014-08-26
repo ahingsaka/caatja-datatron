@@ -51,12 +51,20 @@ public class AppLstView extends Composite {
 
         TextColumn<ApplicationDto> nameColumn = new TextColumn<ApplicationDto>() {
             public String getValue(ApplicationDto object) {
-                return object.name;
+                return object.getName();
             }
 
         };
 
         appLst.addColumn(nameColumn, "Name");
+        
+        TextColumn<ApplicationDto> pwdColumn = new TextColumn<ApplicationDto>() {
+            public String getValue(ApplicationDto object) {
+                return object.getPassword();
+            }
+        };
+        
+        appLst.addColumn(pwdColumn, "Password");
 
         final SafeHtmlCell selectCell = new SafeHtmlCell() {
             @Override

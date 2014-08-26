@@ -29,15 +29,15 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
     }
 
     @Override
-    public boolean createApplication(String name) {
+    public boolean createApplication(String name, String password) {
 
         Objectify ofy = ObjectifyService.ofy();
 
         List<DatatronApplication> appNames = ofy.load().type(DatatronApplication.class).filter("name", name)
                 .ancestor(KeyFactory.createKey("RootApp", "app")).list();
         if (appNames.isEmpty()) {
-            DatatronApplication gruiApp = new DatatronApplication(name);
-            ofy.save().entity(gruiApp);
+            DatatronApplication datatronApp = new DatatronApplication(name, password);
+            ofy.save().entity(datatronApp);
             return true;
 
         } else {
@@ -53,7 +53,8 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
                 .ancestor(KeyFactory.createKey("RootApp", "app")).list();
 
         for (DatatronApplication datatronApplication : listFound) {
-            result.add(new ApplicationDto(datatronApplication.getId(), datatronApplication.getName()));
+            result.add(new ApplicationDto(datatronApplication.getId(), datatronApplication.getName(),
+                    datatronApplication.getPassword()));
         }
 
         return result;
@@ -190,10 +191,10 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         Objectify ofy = ObjectifyService.ofy();
         List<DatatronAuthentication> authentication = ofy.load().type(DatatronAuthentication.class)
                 .ancestor(KeyFactory.createKey("RootAuth", "auth")).list();
-        
+
         if (authentication.isEmpty()) {
             return null;
-            
+
         } else {
             DatatronAuthentication datatronAuthentication = authentication.get(0);
             String question = datatronAuthentication.getQuestion();
