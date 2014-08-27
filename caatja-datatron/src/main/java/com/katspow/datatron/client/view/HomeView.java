@@ -52,9 +52,6 @@ public class HomeView extends Composite {
     Anchor newApp;
 
     @UiField
-    Anchor changePwd;
-
-    @UiField
     Anchor listImg;
 
     @UiField
@@ -171,7 +168,6 @@ public class HomeView extends Composite {
         other.setVisible(visible);
         listApp.setVisible(visible);
         newApp.setVisible(visible);
-        changePwd.setVisible(visible);
         listImg.setVisible(visible);
         uploadImg.setVisible(visible);
         listScores.setVisible(visible);

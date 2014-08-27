@@ -50,9 +50,11 @@
 				<li class="icn_new_article">
 					<g:Anchor ui:field="newApp" href="#" text="New"></g:Anchor>
 				</li>
+				<!-- 
 				<li class="icn_security">
 					<g:Anchor ui:field="changePwd" href="#" text="Password"></g:Anchor>
 				</li>
+				 -->
 			</ul>
 			<g:HTML ui:field="images"></g:HTML>
 			<ul class="toggle">
