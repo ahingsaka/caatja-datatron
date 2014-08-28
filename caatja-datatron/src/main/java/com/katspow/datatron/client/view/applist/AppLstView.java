@@ -13,21 +13,27 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.CellTable.Resources;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
+import com.google.gwt.user.cellview.client.DataGrid;
+import com.google.gwt.user.cellview.client.DataGrid.Resources;
+import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
 import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
+import com.katspow.datatron.client.utils.GridResources;
 import com.katspow.datatron.client.utils.Msg;
-import com.katspow.datatron.client.utils.TableResources;
-import com.katspow.datatron.client.view.popup.PopupCallback;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
+import com.katspow.datatron.client.view.popup.PopupCallback;
 import com.katspow.datatron.shared.ApplicationDto;
 
 public class AppLstView extends Composite {
@@ -43,12 +49,57 @@ public class AppLstView extends Composite {
     HTML message;
 
     @UiField(provided = true)
-    CellTable<ApplicationDto> appLst;
+    DataGrid<ApplicationDto> appLst;
+    
+    @UiField(provided = true)
+    SimplePager pager;
+    
+    @UiField
+    DockLayoutPanel dock;
+    
+    private ListDataProvider<ApplicationDto> dataProvider = new ListDataProvider<ApplicationDto>();
 
     public AppLstView() {
-        appLst = new CellTable<ApplicationDto>(10, (Resources) GWT.create(TableResources.class));
+        appLst = new DataGrid<ApplicationDto>(10, (Resources) GWT.create(GridResources.class));
+        appLst.setAutoHeaderRefreshDisabled(true);
+        appLst.setEmptyTableWidget(new Label("No item"));
+        
+        // Attach a column sort handler to the ListDataProvider to sort
+        // the
+        // list.
+        ListHandler<ApplicationDto> sortHandler = new ListHandler<ApplicationDto>(dataProvider.getList());
+        appLst.addColumnSortHandler(sortHandler);
+        
+     // Create a Pager to control the table.
+        SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
+        pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
+        pager.setDisplay(appLst);
+        
+        initTableColumns(sortHandler);
+        
+        dataProvider.addDataDisplay(appLst);
+        
         initWidget(uiBinder.createAndBindUi(this));
+        
+        dock.setHeight("500px");
+        dock.setWidth("100%");
 
+
+        dataService.findAllApps(new AsyncCallback<List<ApplicationDto>>() {
+            public void onSuccess(List<ApplicationDto> result) {
+//                appLst.setRowData(result);
+                dataProvider.setList(result);
+            }
+
+            @Override
+            public void onFailure(Throwable caught) {
+            }
+        });
+
+    }
+    
+    private void initTableColumns(ListHandler<ApplicationDto> sortHandler) {
+        
         TextColumn<ApplicationDto> nameColumn = new TextColumn<ApplicationDto>() {
             public String getValue(ApplicationDto object) {
                 return object.getName();
@@ -141,19 +192,9 @@ public class AppLstView extends Composite {
         };
 
         appLst.addColumn(progressCol, "Delete");
-
-        dataService.findAllApps(new AsyncCallback<List<ApplicationDto>>() {
-            public void onSuccess(List<ApplicationDto> result) {
-                appLst.setRowData(result);
-            }
-
-            @Override
-            public void onFailure(Throwable caught) {
-            }
-        });
-
+        
     }
-    
+
     public void setSelectedApplication(ApplicationDto object) {
         Msg.setInfoMsg(message, "Application <b>" + object.getName() + "</b> is now selected");
     }
