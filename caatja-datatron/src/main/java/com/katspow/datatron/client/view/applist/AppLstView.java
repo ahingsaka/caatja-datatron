@@ -168,7 +168,7 @@ public class AppLstView extends Composite {
             }
         };
 
-        Column<ApplicationDto, SafeHtml> progressCol = new Column<ApplicationDto, SafeHtml>(progressCell) {
+        Column<ApplicationDto, SafeHtml> deleteCol = new Column<ApplicationDto, SafeHtml>(progressCell) {
             public SafeHtml getValue(ApplicationDto value) {
                 SafeHtmlBuilder sb = new SafeHtmlBuilder();
                 sb.appendHtmlConstant("<input type='image' src='images/icn_trash.png' title='Trash' />");
@@ -194,7 +194,26 @@ public class AppLstView extends Composite {
 
         };
 
-        appLst.addColumn(progressCol, "Delete");
+        appLst.addColumn(deleteCol, "Delete");
+        
+        Column<ApplicationDto, SafeHtml> saveCol = new Column<ApplicationDto, SafeHtml>(progressCell) {
+            public SafeHtml getValue(ApplicationDto value) {
+                SafeHtmlBuilder sb = new SafeHtmlBuilder();
+                sb.appendHtmlConstant("<input type='image' src='images/icn_alert_success.png' title='Trash' />");
+                return sb.toSafeHtml();
+            }
+
+            @Override
+            public void onBrowserEvent(Context context, Element elem, ApplicationDto object, NativeEvent event) {
+                super.onBrowserEvent(context, elem, object, event);
+                if ("click".equals(event.getType())) {
+                   
+                }
+            }
+
+        };
+
+        appLst.addColumn(saveCol, "Save");
         
     }
 
