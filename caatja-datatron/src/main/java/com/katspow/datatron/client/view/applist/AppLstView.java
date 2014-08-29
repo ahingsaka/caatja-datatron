@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.cell.client.Cell.Context;
+import com.google.gwt.cell.client.EditTextCell;
 import com.google.gwt.cell.client.SafeHtmlCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -109,9 +110,11 @@ public class AppLstView extends Composite {
 
         appLst.addColumn(nameColumn, "Name");
         
-        TextColumn<ApplicationDto> pwdColumn = new TextColumn<ApplicationDto>() {
+        Column<ApplicationDto, String> pwdColumn = new Column<ApplicationDto, String>(new EditTextCell()) {
+            @Override
             public String getValue(ApplicationDto object) {
-                return object.getPassword();
+                String pwd = object.getPassword();
+                return pwd == null ? "" : pwd;
             }
         };
         
