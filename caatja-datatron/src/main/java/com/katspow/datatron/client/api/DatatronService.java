@@ -18,6 +18,8 @@ public interface DatatronService extends RemoteService {
     String getQuestion();
     
     boolean createApplication(String name, String application);
+    
+    void deleteApplication(Long idApp);
 
     List<ApplicationDto> findAllApps();
 

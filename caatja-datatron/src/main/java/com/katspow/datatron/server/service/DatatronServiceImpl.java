@@ -47,13 +47,40 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
     }
 
     @Override
-    public void updatePasswordApp(Long appId, String password) {
-        
+    public void deleteApplication(Long appId) {
+
         Objectify ofy = ObjectifyService.ofy();
 
         DatatronApplication application = ofy.load().type(DatatronApplication.class)
                 .parent(KeyFactory.createKey("RootApp", "app")).id(appId).now();
         
+        Key<DatatronApplication> keyApp = ofy.load().type(DatatronApplication.class)
+                .ancestor(KeyFactory.createKey("RootApp", "app")).keys().first().now();
+
+        // Delete all images first
+        List<DatatronImage> listFound = ObjectifyService.ofy().load().type(DatatronImage.class).ancestor(application)
+                .list();
+        
+        for (DatatronImage datatronImage : listFound) {
+            Long imgId = datatronImage.getId();
+            Key<DatatronImage> key = Key.create(keyApp, DatatronImage.class, imgId);
+            DatatronImage res = ofy.load().key(key).now();
+            ofy.delete().entity(res).now();
+        }
+        
+        // Delete the app
+        ofy.delete().entity(application).now();
+
+    }
+
+    @Override
+    public void updatePasswordApp(Long appId, String password) {
+
+        Objectify ofy = ObjectifyService.ofy();
+
+        DatatronApplication application = ofy.load().type(DatatronApplication.class)
+                .parent(KeyFactory.createKey("RootApp", "app")).id(appId).now();
+
         application.setPassword(password);
         ofy.save().entity(application).now();
     }

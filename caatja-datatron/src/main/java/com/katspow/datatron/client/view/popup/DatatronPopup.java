@@ -69,6 +69,7 @@ public class DatatronPopup extends Composite {
 
         okBtn.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
+                dialogBox.hide();
                 callback.onOk();
             }
         });

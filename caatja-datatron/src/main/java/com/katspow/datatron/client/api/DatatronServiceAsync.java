@@ -27,4 +27,6 @@ public interface DatatronServiceAsync {
 
     void updatePasswordApp(Long id, String password, AsyncCallback<Void> callback);
 
+    void deleteApplication(Long idApp, AsyncCallback<Void> callback);
+
 }

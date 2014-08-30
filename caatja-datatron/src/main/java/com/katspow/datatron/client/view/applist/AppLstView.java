@@ -186,7 +186,7 @@ public class AppLstView extends Composite {
             }
 
             @Override
-            public void onBrowserEvent(Context context, Element elem, ApplicationDto object, NativeEvent event) {
+            public void onBrowserEvent(Context context, Element elem, final ApplicationDto object, NativeEvent event) {
                 super.onBrowserEvent(context, elem, object, event);
                 if ("click".equals(event.getType())) {
                     DatatronPopup datatronPopup = new DatatronPopup("Confirm action", "Application <b>"
@@ -194,7 +194,7 @@ public class AppLstView extends Composite {
                     
                     datatronPopup.setCallback(new PopupCallback() {
                         public void onOk() {
-                            // TODO Auto-generated method stub
+                            deleteApp(object.getId());
                         }
                     });
                     
@@ -234,9 +234,30 @@ public class AppLstView extends Composite {
             }
         });
     }
+    
+    private void deleteApp(final Long appId) {
+        
+        Datatron.loading();
+        dataService.deleteApplication(appId, new SimpleLoadingCallback<Void>() {
+            public void onOk(Void result) {
+                
+                ApplicationDto selectedApplication = Datatron.getSelectedApplication();
+                
+                if (selectedApplication.getId() == appId) {
+                    Datatron.setSelectedApplication(null);
+                }
+                
+                findAllApps();
+                Msg.setInfoMsg(message, "The application was successfully deleted");
+            }
+        });
+
+    }
 
     public void setSelectedApplication(ApplicationDto object) {
-        Msg.setInfoMsg(message, "Application <b>" + object.getName() + "</b> is now selected");
+        if (object != null) {
+            Msg.setInfoMsg(message, "Application <b>" + object.getName() + "</b> is now selected");
+        }
     }
 
 }

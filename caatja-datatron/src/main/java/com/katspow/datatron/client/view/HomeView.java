@@ -17,6 +17,8 @@ import com.katspow.datatron.shared.ApplicationDto;
 
 public class HomeView extends Composite {
 
+    private static final String NO_APPLICATION_SELECTED = "[ No application selected ]";
+
     interface MyUiBinder extends UiBinder<Widget, HomeView> {
     }
 
@@ -156,8 +158,13 @@ public class HomeView extends Composite {
     }
 
     public void setSelectedApplication(ApplicationDto object) {
-        setHomeTitle("Application selected : " + object.getName());
-        setMenuTitle(object.getName());
+        if (object == null) {
+            setHomeTitle(NO_APPLICATION_SELECTED);
+            setMenuTitle(NO_APPLICATION_SELECTED);
+        } else {
+            setHomeTitle("Application selected : " + object.getName());
+            setMenuTitle(object.getName());
+        }
     }
 
     public void displayMenuLinks(boolean visible) {
