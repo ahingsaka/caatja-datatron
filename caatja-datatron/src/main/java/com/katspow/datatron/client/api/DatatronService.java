@@ -26,5 +26,7 @@ public interface DatatronService extends RemoteService {
     void deleteImage(Long id, Long parentId);
     
     void changeLogin(String login, String password, String question, String answer);
+    
+    void updatePasswordApp(Long id, String password);
 
 }

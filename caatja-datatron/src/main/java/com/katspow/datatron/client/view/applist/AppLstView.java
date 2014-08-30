@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.cell.client.Cell.Context;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.SafeHtmlCell;
 import com.google.gwt.cell.client.TextInputCell;
 import com.google.gwt.core.client.GWT;
@@ -31,6 +32,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.client.api.DatatronServiceAsync;
+import com.katspow.datatron.client.api.SimpleLoadingCallback;
 import com.katspow.datatron.client.utils.GridResources;
 import com.katspow.datatron.client.utils.Msg;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
@@ -85,10 +87,13 @@ public class AppLstView extends Composite {
         dock.setHeight("500px");
         dock.setWidth("100%");
 
+        findAllApps();
 
+    }
+
+    private void findAllApps() {
         dataService.findAllApps(new AsyncCallback<List<ApplicationDto>>() {
             public void onSuccess(List<ApplicationDto> result) {
-//                appLst.setRowData(result);
                 dataProvider.setList(result);
             }
 
@@ -96,7 +101,6 @@ public class AppLstView extends Composite {
             public void onFailure(Throwable caught) {
             }
         });
-
     }
     
     private void initTableColumns(ListHandler<ApplicationDto> sortHandler) {
@@ -119,6 +123,12 @@ public class AppLstView extends Composite {
         };
         
         appLst.addColumn(pwdColumn, "Password");
+        
+        pwdColumn.setFieldUpdater(new FieldUpdater<ApplicationDto, String>() {
+            public void update(int index, ApplicationDto object, String value) {
+                object.setPassword(value);
+            }
+        });
 
         final SafeHtmlCell selectCell = new SafeHtmlCell() {
             @Override
@@ -128,7 +138,7 @@ public class AppLstView extends Composite {
                 return events;
             }
         };
-
+        
         Column<ApplicationDto, SafeHtml> selectCol = new Column<ApplicationDto, SafeHtml>(selectCell) {
             public SafeHtml getValue(ApplicationDto value) {
                 SafeHtmlBuilder sb = new SafeHtmlBuilder();
@@ -205,16 +215,24 @@ public class AppLstView extends Composite {
 
             @Override
             public void onBrowserEvent(Context context, Element elem, ApplicationDto object, NativeEvent event) {
-                super.onBrowserEvent(context, elem, object, event);
                 if ("click".equals(event.getType())) {
-                   
+                   updatePasswordApp(object.getId(), object.getPassword());
                 }
             }
 
         };
-
+        
         appLst.addColumn(saveCol, "Save");
         
+    }
+
+    protected void updatePasswordApp(Long id, String password) {
+        dataService.updatePasswordApp(id, password, new SimpleLoadingCallback<Void>() {
+            public void onOk(Void result) {
+                findAllApps();
+                Msg.setInfoMsg(message, "The password has been changed");
+            }
+        });
     }
 
     public void setSelectedApplication(ApplicationDto object) {

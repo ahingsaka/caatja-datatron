@@ -47,6 +47,18 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
     }
 
     @Override
+    public void updatePasswordApp(Long appId, String password) {
+        
+        Objectify ofy = ObjectifyService.ofy();
+
+        DatatronApplication application = ofy.load().type(DatatronApplication.class)
+                .parent(KeyFactory.createKey("RootApp", "app")).id(appId).now();
+        
+        application.setPassword(password);
+        ofy.save().entity(application).now();
+    }
+
+    @Override
     public List<ApplicationDto> findAllApps() {
         List<ApplicationDto> result = new ArrayList<ApplicationDto>();
         List<DatatronApplication> listFound = ObjectifyService.ofy().load().type(DatatronApplication.class)

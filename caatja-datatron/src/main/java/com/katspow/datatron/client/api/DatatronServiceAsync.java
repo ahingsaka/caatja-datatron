@@ -25,4 +25,6 @@ public interface DatatronServiceAsync {
 
     void getQuestion(AsyncCallback<String> callback);
 
+    void updatePasswordApp(Long id, String password, AsyncCallback<Void> callback);
+
 }
