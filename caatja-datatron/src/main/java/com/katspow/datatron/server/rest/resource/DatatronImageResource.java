@@ -4,13 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
-import org.restlet.ext.json.JsonRepresentation;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
+import com.katspow.datatron.server.entity.DatatronApplication;
+import com.katspow.datatron.server.entity.DatatronImage;
 
 public class DatatronImageResource extends ServerResource {
 
@@ -24,6 +27,21 @@ public class DatatronImageResource extends ServerResource {
         JSONArray jsonData = new JSONArray();
 
         Objectify ofy = ObjectifyService.ofy();
+        DatatronApplication app = ofy.load().type(DatatronApplication.class).ancestor(KeyFactory.createKey("RootApp", "app"))
+                .filter("name", appName).first().now();
+
+        for (Map.Entry<String, String> entry : valuesMap.entrySet()) {
+            String key = entry.getKey();
+            if (!key.contains("appName")) {
+                String value = entry.getValue();
+                DatatronImage resource = ofy.load().type(DatatronImage.class).ancestor(app).filter("name", value).first()
+                        .now();
+
+                if (resource != null) {
+                    responseMap.put(key, resource.getImageData());
+                }
+            }
+        }
 
         // String pictureName = getQuery().getValues("pictureName");
         // GruiResource resource =
