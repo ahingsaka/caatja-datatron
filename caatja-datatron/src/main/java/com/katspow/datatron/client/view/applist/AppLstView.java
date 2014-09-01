@@ -209,7 +209,7 @@ public class AppLstView extends Composite {
         Column<ApplicationDto, SafeHtml> saveCol = new Column<ApplicationDto, SafeHtml>(progressCell) {
             public SafeHtml getValue(ApplicationDto value) {
                 SafeHtmlBuilder sb = new SafeHtmlBuilder();
-                sb.appendHtmlConstant("<input type='image' src='images/icn_alert_success.png' title='Trash' />");
+                sb.appendHtmlConstant("<input type='image' src='images/icn_alert_success.png' title='Save' />");
                 return sb.toSafeHtml();
             }
 
