@@ -13,7 +13,7 @@ public class DatatronRestClient {
         resource.addQueryParameter("appName", "arkaanz");
         resource.addQueryParameter("pictureName", "lvl.png");
 
-        ChallengeResponse authentication = new ChallengeResponse(ChallengeScheme.HTTP_BASIC, "a", "a");
+        ChallengeResponse authentication = new ChallengeResponse(ChallengeScheme.HTTP_BASIC, "arkaanz", "arkaanz123");
         resource.setChallengeResponse(authentication);
 
         try {
