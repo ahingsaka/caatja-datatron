@@ -72,6 +72,9 @@
 				<li class="icn_folder">
 					<g:Anchor ui:field="listScores" href="#" text="Show all"></g:Anchor>
 				</li>
+				<li class="icn_new_article">
+					<g:Anchor ui:field="newScore" href="#" text="New"></g:Anchor>
+				</li>
 				<!-- <li class="icn_photo"><a href="#">Gallery</a></li> <li class="icn_audio"><a 
 					href="#">Audio</a></li> <li class="icn_video"><a href="#">Video</a></li> -->
 			</ul>

@@ -8,6 +8,7 @@ import com.katspow.datatron.client.api.DatatronServiceAsync;
 import com.katspow.datatron.client.view.HomeView;
 import com.katspow.datatron.client.view.LoginView;
 import com.katspow.datatron.client.view.applist.AppLstView;
+import com.katspow.datatron.client.view.createscore.CreateScorePopup;
 import com.katspow.datatron.client.view.data.DataView;
 import com.katspow.datatron.client.view.imgList.ImgLstView;
 import com.katspow.datatron.client.view.popup.DatatronPopup;
@@ -30,6 +31,8 @@ public class Datatron implements EntryPoint {
     private static UploadView uploadView;
 
     private static ScoresView scoresView;
+    
+    private static CreateScorePopup createScorePopup;
 
     private static DataView dataView;
 
@@ -86,9 +89,17 @@ public class Datatron implements EntryPoint {
             getHomeView().setViewInMain(scoresView);
         }
     }
+    
+    public static void showCreateScore() {
+        if (checkSelectedApp()) {
+            createScorePopup = new CreateScorePopup();
+            createScorePopup.center();
+        }
+        
+    }
 
     public static void showData() {
-        if (!checkSelectedApp()) {
+        if (checkSelectedApp()) {
             dataView = new DataView();
             getHomeView().setViewInMain(dataView);
         }
@@ -103,9 +114,9 @@ public class Datatron implements EntryPoint {
         if (selectedApplication == null) {
             DatatronPopup datatronPopup = new DatatronPopup("Please select an application first");
             datatronPopup.center();
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 

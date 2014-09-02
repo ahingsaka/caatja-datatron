@@ -61,6 +61,9 @@ public class HomeView extends Composite {
 
     @UiField
     Anchor listScores;
+    
+    @UiField
+    Anchor newScore;
 
     @UiField
     Anchor listData;
@@ -112,6 +115,12 @@ public class HomeView extends Composite {
         listScores.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 Datatron.showScores();
+            }
+        });
+        
+        newScore.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                Datatron.showCreateScore();
             }
         });
 
