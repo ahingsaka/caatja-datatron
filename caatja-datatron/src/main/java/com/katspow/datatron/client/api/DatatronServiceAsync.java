@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.katspow.datatron.shared.ApplicationDto;
 import com.katspow.datatron.shared.AuthenticationDto;
 import com.katspow.datatron.shared.ImageDto;
+import com.katspow.datatron.shared.ScoreDto;
 
 public interface DatatronServiceAsync {
     
@@ -28,5 +29,7 @@ public interface DatatronServiceAsync {
     void updatePasswordApp(Long id, String password, AsyncCallback<Void> callback);
 
     void deleteApplication(Long idApp, AsyncCallback<Void> callback);
+
+    void findAllScores(Long appId, AsyncCallback<List<ScoreDto>> callback);
 
 }

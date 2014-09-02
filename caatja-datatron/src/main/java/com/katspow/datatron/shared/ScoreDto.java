@@ -16,6 +16,15 @@ public class ScoreDto implements Serializable {
     
     public ScoreDto() {
     }
+    
+    
+    public ScoreDto(Long id, int numOrder, String name, int score) {
+        super();
+        this.id = id;
+        this.numOrder = numOrder;
+        this.name = name;
+        this.score = score;
+    }
 
     public Long getId() {
         return id;

@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.katspow.datatron.shared.ApplicationDto;
 import com.katspow.datatron.shared.AuthenticationDto;
 import com.katspow.datatron.shared.ImageDto;
+import com.katspow.datatron.shared.ScoreDto;
 
 @RemoteServiceRelativePath("service")
 public interface DatatronService extends RemoteService {
@@ -22,6 +23,8 @@ public interface DatatronService extends RemoteService {
     void deleteApplication(Long idApp);
 
     List<ApplicationDto> findAllApps();
+    
+    List<ScoreDto> findAllScores(Long appId);
 
     List<ImageDto> findAllResources(Long appId);
     

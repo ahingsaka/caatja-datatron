@@ -1,6 +1,7 @@
 package com.katspow.datatron.client.view.scores;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.cell.client.Cell.Context;
@@ -27,6 +28,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.katspow.datatron.client.Datatron;
+import com.katspow.datatron.client.api.SimpleLoadingCallback;
 import com.katspow.datatron.client.utils.GridResources;
 import com.katspow.datatron.shared.ScoreDto;
 
@@ -66,16 +69,16 @@ public class ScoresView extends Composite {
         SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
         pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
         pager.setDisplay(scoreLst);
-        
+
         initTableColumns(sortHandler);
-        
+
         dataProvider.addDataDisplay(scoreLst);
 
         initWidget(uiBinder.createAndBindUi(this));
-        
+
         dock.setHeight("500px");
         dock.setWidth("100%");
-        
+
         findAllScores();
     }
 
@@ -85,9 +88,9 @@ public class ScoresView extends Composite {
                 return String.valueOf(object.getNumOrder());
             }
         };
-        
+
         scoreLst.addColumn(numColumn, "No");
-        
+
         Column<ScoreDto, String> nameColumn = new Column<ScoreDto, String>(new TextInputCell()) {
             @Override
             public String getValue(ScoreDto object) {
@@ -95,15 +98,16 @@ public class ScoresView extends Composite {
                 return pwd == null ? "" : pwd;
             }
         };
-        
+
         scoreLst.addColumn(nameColumn, "Name");
-        
+
         nameColumn.setFieldUpdater(new FieldUpdater<ScoreDto, String>() {
             public void update(int index, ScoreDto object, String value) {
-                object.setName(value);;
+                object.setName(value);
+                ;
             }
         });
-        
+
         Column<ScoreDto, String> scoreColumn = new Column<ScoreDto, String>(new TextInputCell()) {
             @Override
             public String getValue(ScoreDto object) {
@@ -111,15 +115,15 @@ public class ScoresView extends Composite {
                 return pwd == null ? "" : pwd;
             }
         };
-        
+
         scoreLst.addColumn(scoreColumn, "Score");
-        
+
         scoreColumn.setFieldUpdater(new FieldUpdater<ScoreDto, String>() {
             public void update(int index, ScoreDto object, String value) {
                 object.setScore(Integer.parseInt(value));
             }
         });
-        
+
         final SafeHtmlCell progressCell = new SafeHtmlCell() {
             @Override
             public Set<String> getConsumedEvents() {
@@ -128,7 +132,7 @@ public class ScoresView extends Composite {
                 return events;
             }
         };
-        
+
         Column<ScoreDto, SafeHtml> saveCol = new Column<ScoreDto, SafeHtml>(progressCell) {
             public SafeHtml getValue(ScoreDto value) {
                 SafeHtmlBuilder sb = new SafeHtmlBuilder();
@@ -139,25 +143,32 @@ public class ScoresView extends Composite {
             @Override
             public void onBrowserEvent(Context context, Element elem, ScoreDto object, NativeEvent event) {
                 if ("click".equals(event.getType())) {
-                   update(object);
+                    update(object);
                 }
             }
 
         };
-        
+
         scoreLst.addColumn(saveCol, "Save");
-        
-        
+
     }
 
     protected void update(ScoreDto object) {
         // TODO Auto-generated method stub
-        
+
     }
 
     private void findAllScores() {
-        // TODO Auto-generated method stub
-        
+
+        Datatron.loading();
+
+        Datatron.dataService.findAllScores(Datatron.getSelectedApplication().getId(),
+                new SimpleLoadingCallback<List<ScoreDto>>() {
+                    public void onOk(List<ScoreDto> result) {
+                        dataProvider.setList(result);
+                    }
+                });
+
     }
 
 }

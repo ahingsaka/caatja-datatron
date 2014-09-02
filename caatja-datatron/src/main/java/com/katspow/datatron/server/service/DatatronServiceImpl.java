@@ -12,9 +12,11 @@ import com.katspow.datatron.client.api.DatatronService;
 import com.katspow.datatron.server.entity.DatatronApplication;
 import com.katspow.datatron.server.entity.DatatronAuthentication;
 import com.katspow.datatron.server.entity.DatatronImage;
+import com.katspow.datatron.server.entity.DatatronScore;
 import com.katspow.datatron.shared.ApplicationDto;
 import com.katspow.datatron.shared.AuthenticationDto;
 import com.katspow.datatron.shared.ImageDto;
+import com.katspow.datatron.shared.ScoreDto;
 
 @SuppressWarnings("serial")
 public class DatatronServiceImpl extends RemoteServiceServlet implements DatatronService {
@@ -26,6 +28,7 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         ObjectifyService.register(DatatronAuthentication.class);
         ObjectifyService.register(DatatronApplication.class);
         ObjectifyService.register(DatatronImage.class);
+        ObjectifyService.register(DatatronScore.class);
     }
 
     @Override
@@ -53,21 +56,21 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
 
         DatatronApplication application = ofy.load().type(DatatronApplication.class)
                 .parent(KeyFactory.createKey("RootApp", "app")).id(appId).now();
-        
+
         Key<DatatronApplication> keyApp = ofy.load().type(DatatronApplication.class)
                 .ancestor(KeyFactory.createKey("RootApp", "app")).keys().first().now();
 
         // Delete all images first
         List<DatatronImage> listFound = ObjectifyService.ofy().load().type(DatatronImage.class).ancestor(application)
                 .list();
-        
+
         for (DatatronImage datatronImage : listFound) {
             Long imgId = datatronImage.getId();
             Key<DatatronImage> key = Key.create(keyApp, DatatronImage.class, imgId);
             DatatronImage res = ofy.load().key(key).now();
             ofy.delete().entity(res).now();
         }
-        
+
         // Delete the app
         ofy.delete().entity(application).now();
 
@@ -100,6 +103,26 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
     }
 
     @Override
+    public List<ScoreDto> findAllScores(Long appId) {
+        List<ScoreDto> scores = new ArrayList<ScoreDto>();
+
+        Objectify ofy = ObjectifyService.ofy();
+
+        DatatronApplication application = ofy.load().type(DatatronApplication.class)
+                .parent(KeyFactory.createKey("RootApp", "app")).id(appId).now();
+
+        List<DatatronScore> listFound = ObjectifyService.ofy().load().type(DatatronScore.class).ancestor(application)
+                .list();
+
+        for (DatatronScore datatronScore : listFound) {
+            scores.add(new ScoreDto(datatronScore.getId(), datatronScore.getNumOrder(), datatronScore.getName(),
+                    datatronScore.getScore()));
+        }
+
+        return scores;
+    }
+
+    @Override
     public List<ImageDto> findAllResources(Long appId) {
         List<ImageDto> result = new ArrayList<ImageDto>();
 
@@ -117,9 +140,9 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         List<DatatronImage> listFound = ObjectifyService.ofy().load().type(DatatronImage.class).ancestor(application)
                 .list();
 
-        for (DatatronImage gruiResource : listFound) {
-            result.add(new ImageDto(gruiResource.getId(), gruiResource.getParentId(), gruiResource.getName(),
-                    gruiResource.getImageData(), gruiResource.getWidth(), gruiResource.getHeight()));
+        for (DatatronImage datatronImg : listFound) {
+            result.add(new ImageDto(datatronImg.getId(), datatronImg.getParentId(), datatronImg.getName(), datatronImg
+                    .getImageData(), datatronImg.getWidth(), datatronImg.getHeight()));
         }
 
         return result;

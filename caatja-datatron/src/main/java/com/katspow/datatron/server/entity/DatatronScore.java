@@ -54,4 +54,8 @@ public class DatatronScore {
         return application.getId();
     }
     
+    public Long getId() {
+        return id;
+    }
+    
 }
