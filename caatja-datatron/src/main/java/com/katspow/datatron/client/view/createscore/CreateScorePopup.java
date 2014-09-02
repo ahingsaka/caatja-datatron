@@ -7,9 +7,12 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SubmitButton;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.katspow.datatron.client.utils.Msg;
 
 public class CreateScorePopup extends Composite {
 
@@ -23,6 +26,15 @@ public class CreateScorePopup extends Composite {
 
     @UiField
     DialogBox dialogBox;
+    
+    @UiField
+    TextBox nameFld;
+    
+    @UiField
+    TextBox scoreFld;
+
+    @UiField
+    HTML errorMsg;
 
     @UiField
     SubmitButton okBtn;
@@ -42,6 +54,29 @@ public class CreateScorePopup extends Composite {
                 dialogBox.hide();
             }
         });
+        
+        okBtn.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                callService();
+            }
+        });
+    }
+
+    protected void callService() {
+        String text = nameFld.getText();
+        
+        if (text.isEmpty()) {
+            Msg.setErrorMsg(errorMsg, "Please enter a name");
+            return;
+        }
+        
+        String score = scoreFld.getText();
+        
+        if (score.isEmpty()) {
+            Msg.setErrorMsg(errorMsg, "Please enter a score");
+            return;
+        }
+        
     }
 
     public void center() {

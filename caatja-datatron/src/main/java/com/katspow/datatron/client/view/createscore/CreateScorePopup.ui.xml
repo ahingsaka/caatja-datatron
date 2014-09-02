@@ -10,7 +10,18 @@
 							<h3>Create a new score</h3>
 						</header>
 						<div class="module_content">
-							<g:HTML ui:field="message"></g:HTML>
+						
+							<fieldset>
+								<label>Name</label>
+								<g:TextBox ui:field="nameFld"></g:TextBox>
+							</fieldset>
+							
+							<fieldset>
+								<label>Score</label>
+								<g:TextBox ui:field="scoreFld"></g:TextBox>
+							</fieldset>
+						
+							<g:HTML ui:field="errorMsg"></g:HTML>
 						</div>
 
 						<footer>
