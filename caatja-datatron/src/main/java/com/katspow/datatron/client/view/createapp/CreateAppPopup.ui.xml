@@ -21,6 +21,11 @@
 								<g:TextBox ui:field="pwdFld"></g:TextBox>
 							</fieldset>
 							
+							<fieldset>
+								<label>Max number of scores</label>
+								<g:TextBox ui:field="maxNbScoresFld"></g:TextBox>
+							</fieldset>
+							
 							<g:HTML ui:field="errorMsg"></g:HTML>
 							
 						</div>

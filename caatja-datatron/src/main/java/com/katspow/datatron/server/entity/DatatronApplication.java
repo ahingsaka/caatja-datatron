@@ -21,12 +21,15 @@ public class DatatronApplication {
     
     private String password;
     
+    private Integer maxNbScores;
+    
     public DatatronApplication() {
     }
 
-    public DatatronApplication(String name, String password) {
+    public DatatronApplication(String name, String password, String maxNbScores) {
         this.name = name;
         this.password = password;
+        this.maxNbScores = Integer.parseInt(maxNbScores);
         this.parent = KeyFactory.createKey("RootApp", "app");
     }
     
@@ -48,6 +51,10 @@ public class DatatronApplication {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public Integer getMaxNbScores() {
+        return maxNbScores;
     }
 
 }

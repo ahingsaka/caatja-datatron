@@ -38,6 +38,9 @@ public class CreateAppPopup extends Composite {
     
     @UiField
     TextBox pwdFld;
+    
+    @UiField
+    TextBox maxNbScoresFld;
 
     @UiField
     HTML errorMsg;
@@ -73,6 +76,7 @@ public class CreateAppPopup extends Composite {
 
         String text = nameFld.getText();
         String password = pwdFld.getText();
+        String score = maxNbScoresFld.getText();
 
         if (text.isEmpty()) {
             Msg.setErrorMsg(errorMsg, "Please enter a name");
@@ -83,8 +87,13 @@ public class CreateAppPopup extends Composite {
             Msg.setErrorMsg(errorMsg, "Please enter a password");
             return;
         }
+        
+        if (score.isEmpty()) {
+            Msg.setErrorMsg(errorMsg, "Please enter the maximum number of scores");
+            return;
+        }
 
-        dataService.createApplication(text, password, new AsyncCallback<Boolean>() {
+        dataService.createApplication(text, password, score, new AsyncCallback<Boolean>() {
             public void onSuccess(Boolean result) {
                 if (result) {
                     nameFld.setText("");

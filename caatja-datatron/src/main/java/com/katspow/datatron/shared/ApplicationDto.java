@@ -9,14 +9,16 @@ public class ApplicationDto implements Serializable {
     private Long id;
     private String name;
     private String password;
+    private Integer maxNbOfScores;
     
     public ApplicationDto() {
     }
     
-    public ApplicationDto(Long id, String name, String password) {
+    public ApplicationDto(Long id, String name, String password, Integer maxNbOfScores) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.maxNbOfScores = maxNbOfScores;
     }
 
     
@@ -34,6 +36,10 @@ public class ApplicationDto implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public Integer getMaxNbOfScores() {
+        return maxNbOfScores;
     }
 
 }

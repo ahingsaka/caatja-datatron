@@ -129,6 +129,18 @@ public class AppLstView extends Composite {
                 object.setPassword(value);
             }
         });
+        
+        TextColumn<ApplicationDto> scoreColumn = new TextColumn<ApplicationDto>() {
+            public String getValue(ApplicationDto object) {
+                Integer maxNbOfScores = object.getMaxNbOfScores();
+                return maxNbOfScores == null ? "" : String.valueOf(maxNbOfScores);
+            }
+
+        };
+
+        appLst.addColumn(scoreColumn, "Max nb of scores");
+        
+        
 
         final SafeHtmlCell selectCell = new SafeHtmlCell() {
             @Override

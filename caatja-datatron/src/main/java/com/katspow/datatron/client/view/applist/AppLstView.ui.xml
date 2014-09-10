@@ -5,7 +5,7 @@
 
 		<g:HTML ui:field="message"></g:HTML>
 
-		<article class="module width_half">
+		<article class="module width_3_quarter">
 			<header>
 				<h3>Existing Applications</h3>
 			</header>

@@ -10,7 +10,7 @@ import com.katspow.datatron.shared.ScoreDto;
 
 public interface DatatronServiceAsync {
     
-    void createApplication(String name, String password, AsyncCallback<Boolean> callback);
+    void createApplication(String name, String password, String maxNbScores, AsyncCallback<Boolean> callback);
 
     void findAllApps(AsyncCallback<List<ApplicationDto>> callback);
     
