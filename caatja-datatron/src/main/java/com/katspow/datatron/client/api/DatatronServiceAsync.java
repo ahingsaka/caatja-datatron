@@ -32,4 +32,6 @@ public interface DatatronServiceAsync {
 
     void findAllScores(Long appId, AsyncCallback<List<ScoreDto>> callback);
 
+    void createScore(String name, int score, AsyncCallback<Void> callback);
+
 }
