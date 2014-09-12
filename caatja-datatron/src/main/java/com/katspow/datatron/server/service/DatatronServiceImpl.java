@@ -50,7 +50,7 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
     }
     
     @Override
-    public void createScore(String name, int score) {
+    public void createScore(Long appId, String name, int score) {
         // TODO Auto-generated method stub
     }
 
