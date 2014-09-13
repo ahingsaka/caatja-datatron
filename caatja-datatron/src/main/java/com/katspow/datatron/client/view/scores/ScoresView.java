@@ -111,8 +111,8 @@ public class ScoresView extends Composite {
         Column<ScoreDto, String> scoreColumn = new Column<ScoreDto, String>(new TextInputCell()) {
             @Override
             public String getValue(ScoreDto object) {
-                String pwd = object.getName();
-                return pwd == null ? "" : pwd;
+                Integer score = object.getScore();
+                return score == null ? "" : score.toString();
             }
         };
 

@@ -25,6 +25,13 @@ public class DatatronScore {
     
     public DatatronScore() {
     }
+    
+    public DatatronScore(int numOrder, String name, int score, Key<DatatronApplication> app) {
+        this.name = name;
+        this.numOrder = numOrder;
+        this.score = score;
+        this.application = app;
+    }
 
     public int getNumOrder() {
         return numOrder;

@@ -20,7 +20,7 @@ public interface DatatronService extends RemoteService {
     
     boolean createApplication(String name, String password, String maxNbScores);
     
-    void createScore(Long appId, String name, int score);
+    boolean createScore(Long appId, String name, int score);
     
     void deleteApplication(Long idApp);
 

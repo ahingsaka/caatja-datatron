@@ -12,6 +12,8 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.katspow.datatron.client.Datatron;
+import com.katspow.datatron.client.api.SimpleLoadingCallback;
 import com.katspow.datatron.client.utils.Msg;
 
 public class CreateScorePopup extends Composite {
@@ -26,10 +28,10 @@ public class CreateScorePopup extends Composite {
 
     @UiField
     DialogBox dialogBox;
-    
+
     @UiField
     TextBox nameFld;
-    
+
     @UiField
     TextBox scoreFld;
 
@@ -54,7 +56,7 @@ public class CreateScorePopup extends Composite {
                 dialogBox.hide();
             }
         });
-        
+
         okBtn.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 callService();
@@ -64,19 +66,31 @@ public class CreateScorePopup extends Composite {
 
     protected void callService() {
         String text = nameFld.getText();
-        
+
         if (text.isEmpty()) {
             Msg.setErrorMsg(errorMsg, "Please enter a name");
             return;
         }
-        
+
         String score = scoreFld.getText();
-        
+
         if (score.isEmpty()) {
             Msg.setErrorMsg(errorMsg, "Please enter a score");
             return;
         }
-        
+
+        Datatron.dataService.createScore(Datatron.getSelectedApplication().getId(), text, Integer.parseInt(score),
+                new SimpleLoadingCallback<Boolean>() {
+                    public void onOk(Boolean result) {
+                        if (result) {
+                            Datatron.showScores();
+                            dialogBox.hide();
+                        } else {
+                            Msg.setErrorMsg(errorMsg, "Max nb of scores reached");
+                        }
+                    }
+                });
+
     }
 
     public void center() {

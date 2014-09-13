@@ -51,8 +51,31 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
     }
 
     @Override
-    public void createScore(Long appId, String name, int score) {
-        // TODO Auto-generated method stub
+    public boolean createScore(Long appId, String name, int score) {
+        
+        boolean result = true;
+        
+        Objectify ofy = ObjectifyService.ofy();
+
+        DatatronApplication application = ofy.load().type(DatatronApplication.class)
+               .parent(Key.create(DatatronRoot.class, "app")).id(appId).now();
+        
+        List<DatatronScore> listFound = ofy.load().type(DatatronScore.class).ancestor(application)
+                .list();
+        
+        // Verify if max nb of scores was reached
+        if (application.getMaxNbScores() == listFound.size()) {
+            result = false;
+            
+        } else {
+            Key<DatatronApplication> appKey = Key.create(Key.create(DatatronRoot.class, "app"), DatatronApplication.class,
+                    appId);
+            DatatronScore datatronScore = new DatatronScore(listFound.size() + 1, name, score, appKey);
+            ofy.save().entity(datatronScore).now();
+        }
+        
+        return result;
+        
     }
 
     @Override
