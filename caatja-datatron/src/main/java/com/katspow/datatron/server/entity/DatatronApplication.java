@@ -1,7 +1,6 @@
 package com.katspow.datatron.server.entity;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -12,7 +11,7 @@ import com.googlecode.objectify.annotation.Parent;
 @Cache
 public class DatatronApplication {
     
-    @Parent Key parent;
+    @Parent Key<DatatronRoot> parent;
 
     @Id Long id;
     
@@ -30,7 +29,7 @@ public class DatatronApplication {
         this.name = name;
         this.password = password;
         this.maxNbScores = Integer.parseInt(maxNbScores);
-        this.parent = KeyFactory.createKey("RootApp", "app");
+        this.parent = Key.create(DatatronRoot.class, "app");
     }
     
     public String getName() {
@@ -41,7 +40,7 @@ public class DatatronApplication {
         return id;
     }
     
-    public Key getParent() {
+    public Key<DatatronRoot> getParent() {
         return parent;
     }
     

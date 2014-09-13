@@ -13,7 +13,6 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.fileupload.FileItem;
 
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.googlecode.objectify.Key;
@@ -21,6 +20,7 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 import com.katspow.datatron.server.entity.DatatronApplication;
 import com.katspow.datatron.server.entity.DatatronImage;
+import com.katspow.datatron.server.entity.DatatronRoot;
 
 public class DatatronFileUpload extends AppEngineUploadAction {
 
@@ -35,10 +35,11 @@ public class DatatronFileUpload extends AppEngineUploadAction {
         }
 
         Objectify ofy = ObjectifyService.ofy();
-        Key<DatatronApplication> gruiApplication = ofy.load().type(DatatronApplication.class)
-                .ancestor(KeyFactory.createKey("RootApp", "app")).keys().first().now();
 
-        if (gruiApplication == null) {
+        Key<DatatronApplication> appKey = Key.create(Key.create(DatatronRoot.class, "app"), DatatronApplication.class,
+                Long.parseLong(appValue));
+
+        if (appKey == null) {
             throw new UploadActionException("No app found !");
         }
 
@@ -66,7 +67,7 @@ public class DatatronFileUpload extends AppEngineUploadAction {
                     // client
                     String saveName = item.getName().replaceAll("[\\\\/><\\|\\s\"'{}()\\[\\]]+", "_");
 
-                    DatatronImage datatronImg = new DatatronImage(saveName, width, height, base64Value, gruiApplication);
+                    DatatronImage datatronImg = new DatatronImage(saveName, width, height, base64Value, appKey);
                     ofy.save().entity(datatronImg);
 
                 } catch (Exception e) {

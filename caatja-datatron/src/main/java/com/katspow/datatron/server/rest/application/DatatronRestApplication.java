@@ -11,9 +11,10 @@ import org.restlet.routing.Router;
 import org.restlet.security.ChallengeAuthenticator;
 import org.restlet.security.MapVerifier;
 
-import com.google.appengine.api.datastore.KeyFactory;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.katspow.datatron.server.entity.DatatronApplication;
+import com.katspow.datatron.server.entity.DatatronRoot;
 import com.katspow.datatron.server.rest.resource.DatatronImageResource;
 
 /**
@@ -51,7 +52,7 @@ public class DatatronRestApplication extends Application {
         // originFilter.setNext(challengeAuthenticator);
 
         List<DatatronApplication> listFound = ObjectifyService.ofy().load().type(DatatronApplication.class)
-                .ancestor(KeyFactory.createKey("RootApp", "app")).list();
+                .ancestor(Key.create(DatatronRoot.class, "app")).list();
 
         if (!listFound.isEmpty()) {
 

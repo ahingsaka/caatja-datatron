@@ -9,11 +9,12 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
-import com.google.appengine.api.datastore.KeyFactory;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 import com.katspow.datatron.server.entity.DatatronApplication;
 import com.katspow.datatron.server.entity.DatatronImage;
+import com.katspow.datatron.server.entity.DatatronRoot;
 
 public class DatatronImageResource extends ServerResource {
 
@@ -27,7 +28,7 @@ public class DatatronImageResource extends ServerResource {
         JSONArray jsonData = new JSONArray();
 
         Objectify ofy = ObjectifyService.ofy();
-        DatatronApplication app = ofy.load().type(DatatronApplication.class).ancestor(KeyFactory.createKey("RootApp", "app"))
+        DatatronApplication app = ofy.load().type(DatatronApplication.class).ancestor(Key.create(DatatronRoot.class, "app"))
                 .filter("name", appName).first().now();
 
         for (Map.Entry<String, String> entry : valuesMap.entrySet()) {
