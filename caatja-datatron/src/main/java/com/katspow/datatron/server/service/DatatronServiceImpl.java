@@ -140,7 +140,7 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         DatatronApplication application = ofy.load().type(DatatronApplication.class)
                 .parent(Key.create(DatatronRoot.class, "app")).id(appId).now();
 
-        List<DatatronScore> listFound = ObjectifyService.ofy().load().type(DatatronScore.class).ancestor(application)
+        List<DatatronScore> listFound = ObjectifyService.ofy().load().type(DatatronScore.class).ancestor(application).order("numOrder")
                 .list();
 
         for (DatatronScore datatronScore : listFound) {
