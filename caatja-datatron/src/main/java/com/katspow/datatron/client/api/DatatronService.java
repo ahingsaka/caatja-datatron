@@ -22,6 +22,8 @@ public interface DatatronService extends RemoteService {
     
     boolean createScore(Long appId, String name, int score);
     
+    void updateScore(Long appId, Long scoreId, String name, int score);
+    
     void deleteApplication(Long idApp);
 
     List<ApplicationDto> findAllApps();

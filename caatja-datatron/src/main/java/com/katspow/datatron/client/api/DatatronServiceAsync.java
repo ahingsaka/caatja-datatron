@@ -34,4 +34,6 @@ public interface DatatronServiceAsync {
 
     void createScore(Long appId, String name, int score, AsyncCallback<Boolean> callback);
 
+    void updateScore(Long appId, Long scoreId, String name, int score, AsyncCallback<Void> callback);
+
 }

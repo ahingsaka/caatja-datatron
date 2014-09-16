@@ -1,12 +1,9 @@
 package com.katspow.datatron.client.view.scores;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.FieldUpdater;
-import com.google.gwt.cell.client.SafeHtmlCell;
 import com.google.gwt.cell.client.TextInputCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -30,7 +27,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.katspow.datatron.client.Datatron;
 import com.katspow.datatron.client.api.SimpleLoadingCallback;
+import com.katspow.datatron.client.utils.ClickSafeHtmlCell;
 import com.katspow.datatron.client.utils.GridResources;
+import com.katspow.datatron.client.view.popup.DatatronPopup;
 import com.katspow.datatron.shared.ScoreDto;
 
 public class ScoresView extends Composite {
@@ -124,16 +123,7 @@ public class ScoresView extends Composite {
             }
         });
 
-        final SafeHtmlCell progressCell = new SafeHtmlCell() {
-            @Override
-            public Set<String> getConsumedEvents() {
-                HashSet<String> events = new HashSet<String>();
-                events.add("click");
-                return events;
-            }
-        };
-
-        Column<ScoreDto, SafeHtml> saveCol = new Column<ScoreDto, SafeHtml>(progressCell) {
+        Column<ScoreDto, SafeHtml> saveCol = new Column<ScoreDto, SafeHtml>(new ClickSafeHtmlCell()) {
             public SafeHtml getValue(ScoreDto value) {
                 SafeHtmlBuilder sb = new SafeHtmlBuilder();
                 sb.appendHtmlConstant("<input type='image' src='images/icn_alert_success.png' title='Save' />");
@@ -154,8 +144,13 @@ public class ScoresView extends Composite {
     }
 
     protected void update(ScoreDto object) {
-        // TODO Auto-generated method stub
-
+        Datatron.dataService.updateScore(Datatron.getSelectedApplication().getId(), object.getId(), object.getName(),
+                object.getScore(), new SimpleLoadingCallback<Void>() {
+                    public void onOk(Void result) {
+                        DatatronPopup popup = new DatatronPopup("Score updated");
+                        popup.center();
+                    }
+                });
     }
 
     private void findAllScores() {

@@ -77,6 +77,21 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         return result;
         
     }
+    
+    @Override
+    public void updateScore(Long appId, Long scoreId, String name, int score) {
+        
+        Objectify ofy = ObjectifyService.ofy();
+        
+        DatatronApplication application = ofy.load().type(DatatronApplication.class)
+                .parent(Key.create(DatatronRoot.class, "app")).id(appId).now();
+        
+        DatatronScore datatronScore = ofy.load().type(DatatronScore.class).parent(application).id(scoreId).now();
+        datatronScore.setName(name);
+        datatronScore.setScore(score);
+        
+        ofy.save().entity(datatronScore).now();
+    }
 
     @Override
     public void deleteApplication(Long appId) {
@@ -304,5 +319,7 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         }
 
     }
+
+    
 
 }
