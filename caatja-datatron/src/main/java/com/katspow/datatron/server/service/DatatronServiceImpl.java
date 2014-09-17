@@ -1,6 +1,8 @@
 package com.katspow.datatron.server.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.google.appengine.api.datastore.KeyFactory;
@@ -50,46 +52,85 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
 
     }
 
+    @Deprecated
     @Override
     public boolean createScore(Long appId, String name, int score) {
-        
+
         boolean result = true;
-        
+
         Objectify ofy = ObjectifyService.ofy();
 
         DatatronApplication application = ofy.load().type(DatatronApplication.class)
-               .parent(Key.create(DatatronRoot.class, "app")).id(appId).now();
-        
-        List<DatatronScore> listFound = ofy.load().type(DatatronScore.class).ancestor(application)
-                .list();
-        
+                .parent(Key.create(DatatronRoot.class, "app")).id(appId).now();
+
+        List<DatatronScore> listFound = ofy.load().type(DatatronScore.class).ancestor(application).list();
+
         // Verify if max nb of scores was reached
         if (application.getMaxNbScores() == listFound.size()) {
             result = false;
-            
+
         } else {
-            Key<DatatronApplication> appKey = Key.create(Key.create(DatatronRoot.class, "app"), DatatronApplication.class,
-                    appId);
+            Key<DatatronApplication> appKey = Key.create(Key.create(DatatronRoot.class, "app"),
+                    DatatronApplication.class, appId);
             DatatronScore datatronScore = new DatatronScore(listFound.size() + 1, name, score, appKey);
             ofy.save().entity(datatronScore).now();
         }
-        
+
         return result;
-        
+
     }
-    
+
     @Override
-    public void updateScore(Long appId, Long scoreId, String name, int score) {
-        
+    public void addScore(Long appId, String name, int score) {
+
         Objectify ofy = ObjectifyService.ofy();
-        
+
         DatatronApplication application = ofy.load().type(DatatronApplication.class)
                 .parent(Key.create(DatatronRoot.class, "app")).id(appId).now();
-        
+
+        List<DatatronScore> listFound = ofy.load().type(DatatronScore.class).ancestor(application).list();
+
+        Key<DatatronApplication> appKey = Key.create(Key.create(DatatronRoot.class, "app"), DatatronApplication.class,
+                appId);
+        DatatronScore datatronScore = new DatatronScore(listFound.size() + 1, name, score, appKey);
+
+        listFound.add(datatronScore);
+
+        // Sort according to scores
+        Collections.sort(listFound, new Comparator<DatatronScore>() {
+            public int compare(DatatronScore o1, DatatronScore o2) {
+                return o2.getScore().compareTo(o1.getScore());
+            }
+        });
+
+        int maxNb = application.getMaxNbScores() > listFound.size() ? listFound.size() : application.getMaxNbScores();
+
+        // Update the num orders
+        for (int i = 0; i < maxNb; i++) {
+            DatatronScore scoreToUpdate = listFound.get(i);
+            scoreToUpdate.setNumOrder(i + 1);
+            ofy.save().entity(scoreToUpdate).now();
+        }
+
+        // Remove if too many scores
+        if (listFound.size() > application.getMaxNbScores()) {
+            ofy.delete().entity(listFound.subList(maxNb, listFound.size() - 1)).now();
+        }
+
+    }
+
+    @Override
+    public void updateScore(Long appId, Long scoreId, String name, int score) {
+
+        Objectify ofy = ObjectifyService.ofy();
+
+        DatatronApplication application = ofy.load().type(DatatronApplication.class)
+                .parent(Key.create(DatatronRoot.class, "app")).id(appId).now();
+
         DatatronScore datatronScore = ofy.load().type(DatatronScore.class).parent(application).id(scoreId).now();
         datatronScore.setName(name);
         datatronScore.setScore(score);
-        
+
         ofy.save().entity(datatronScore).now();
     }
 
@@ -155,8 +196,8 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         DatatronApplication application = ofy.load().type(DatatronApplication.class)
                 .parent(Key.create(DatatronRoot.class, "app")).id(appId).now();
 
-        List<DatatronScore> listFound = ObjectifyService.ofy().load().type(DatatronScore.class).ancestor(application).order("numOrder")
-                .list();
+        List<DatatronScore> listFound = ObjectifyService.ofy().load().type(DatatronScore.class).ancestor(application)
+                .order("numOrder").list();
 
         for (DatatronScore datatronScore : listFound) {
             scores.add(new ScoreDto(datatronScore.getId(), datatronScore.getNumOrder(), datatronScore.getName(),
@@ -181,8 +222,7 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         // ofy.load().type(GruiApplication.class).ancestor(KeyFactory.createKey("RootApp",
         // "app")).filterKey(key).first().now();
 
-        List<DatatronImage> listFound = ofy.load().type(DatatronImage.class).ancestor(application)
-                .list();
+        List<DatatronImage> listFound = ofy.load().type(DatatronImage.class).ancestor(application).list();
 
         for (DatatronImage datatronImg : listFound) {
             result.add(new ImageDto(datatronImg.getId(), datatronImg.getParentId(), datatronImg.getName(), datatronImg
@@ -207,7 +247,7 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
 
         DatatronApplication application = ofy.load().type(DatatronApplication.class)
                 .parent(Key.create(DatatronRoot.class, "app")).id(parentId).now();
-        
+
         DatatronImage datatronImage = ofy.load().type(DatatronImage.class).parent(application).id(id).now();
 
         ofy.delete().entity(datatronImage).now();
@@ -319,7 +359,5 @@ public class DatatronServiceImpl extends RemoteServiceServlet implements Datatro
         }
 
     }
-
-    
 
 }

@@ -79,15 +79,15 @@ public class CreateScorePopup extends Composite {
             return;
         }
 
-        Datatron.dataService.createScore(Datatron.getSelectedApplication().getId(), text, Integer.parseInt(score),
-                new SimpleLoadingCallback<Boolean>() {
-                    public void onOk(Boolean result) {
-                        if (result) {
+        Datatron.dataService.addScore(Datatron.getSelectedApplication().getId(), text, Integer.parseInt(score),
+                new SimpleLoadingCallback<Void>() {
+                    public void onOk(Void result) {
+//                        if (result) {
                             Datatron.showScores();
                             dialogBox.hide();
-                        } else {
-                            Msg.setErrorMsg(errorMsg, "Max nb of scores reached");
-                        }
+//                        } else {
+//                            Msg.setErrorMsg(errorMsg, "Max nb of scores reached");
+//                        }
                     }
                 });
 

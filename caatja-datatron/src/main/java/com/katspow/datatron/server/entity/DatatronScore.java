@@ -19,7 +19,7 @@ public class DatatronScore {
     Key<DatatronApplication> application;
     
     @Index
-    private int numOrder;
+    private Integer numOrder;
     
     private String name;
     
@@ -28,7 +28,7 @@ public class DatatronScore {
     public DatatronScore() {
     }
     
-    public DatatronScore(int numOrder, String name, int score, Key<DatatronApplication> app) {
+    public DatatronScore(Integer numOrder, String name, int score, Key<DatatronApplication> app) {
         this.name = name;
         this.numOrder = numOrder;
         this.score = score;
@@ -39,7 +39,7 @@ public class DatatronScore {
         return numOrder;
     }
 
-    public void setNumOrder(int numOrder) {
+    public void setNumOrder(Integer numOrder) {
         this.numOrder = numOrder;
     }
 
@@ -51,7 +51,7 @@ public class DatatronScore {
         this.name = name;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
