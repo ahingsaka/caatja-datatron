@@ -9,7 +9,7 @@ public class DatatronRestClient {
 
     public static void main(String[] args) {
 
-        ClientResource resource = new ClientResource("http://localhost:8888/caatjaServlet");
+        ClientResource resource = new ClientResource("http://localhost:8888/caatjaServlet/img");
         resource.addQueryParameter("appName", "arkaanz");
         resource.addQueryParameter("pictureName", "lvl.png");
 

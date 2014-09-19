@@ -16,6 +16,7 @@ import com.googlecode.objectify.ObjectifyService;
 import com.katspow.datatron.server.entity.DatatronApplication;
 import com.katspow.datatron.server.entity.DatatronRoot;
 import com.katspow.datatron.server.rest.resource.DatatronImageResource;
+import com.katspow.datatron.server.rest.resource.DatatronScoreResource;
 
 /**
  * Cross site request
@@ -34,7 +35,10 @@ public class DatatronRestApplication extends Application {
     @Override
     public Restlet createInboundRoot() {
         Router router = new Router(getContext());
-        router.attachDefault(DatatronImageResource.class);
+        
+        // router.attachDefault(DatatronImageResource.class);
+        router.attach("/img", DatatronImageResource.class);
+        router.attach("/score", DatatronScoreResource.class);
 
         ChallengeAuthenticator challengeAuthenticator = new ChallengeAuthenticator(getContext(),
                 ChallengeScheme.HTTP_BASIC, "myRealm") {
