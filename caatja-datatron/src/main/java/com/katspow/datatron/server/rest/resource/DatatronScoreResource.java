@@ -1,8 +1,7 @@
 package com.katspow.datatron.server.rest.resource;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.restlet.ext.json.JsonRepresentation;
@@ -24,7 +23,7 @@ public class DatatronScoreResource extends ServerResource {
 
         String appName = getQuery().getValues("appName");
 
-        Map<String, Integer> responseMap = new HashMap<String, Integer>();
+        LinkedHashMap<String, Integer> responseMap = new LinkedHashMap<String, Integer>();
         JSONArray jsonData = new JSONArray();
 
         Objectify ofy = ObjectifyService.ofy();

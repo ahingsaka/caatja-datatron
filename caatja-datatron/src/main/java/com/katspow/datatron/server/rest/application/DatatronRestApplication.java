@@ -15,6 +15,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.katspow.datatron.server.entity.DatatronApplication;
 import com.katspow.datatron.server.entity.DatatronRoot;
+import com.katspow.datatron.server.entity.DatatronScore;
 import com.katspow.datatron.server.rest.resource.DatatronImageResource;
 import com.katspow.datatron.server.rest.resource.DatatronScoreResource;
 
@@ -30,6 +31,7 @@ public class DatatronRestApplication extends Application {
 
     static {
         ObjectifyService.register(DatatronApplication.class);
+        ObjectifyService.register(DatatronScore.class);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class DatatronRestApplication extends Application {
         
         // router.attachDefault(DatatronImageResource.class);
         router.attach("/img", DatatronImageResource.class);
-        router.attach("/score", DatatronScoreResource.class);
+        router.attach("/scores", DatatronScoreResource.class);
 
         ChallengeAuthenticator challengeAuthenticator = new ChallengeAuthenticator(getContext(),
                 ChallengeScheme.HTTP_BASIC, "myRealm") {
